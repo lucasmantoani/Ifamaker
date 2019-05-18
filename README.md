@@ -1,3 +1,4 @@
 # Ifamaker
 Projet IFA Maker
-bonjour
+
+Répository de mon projet Fil rouge 'IFA Maker'

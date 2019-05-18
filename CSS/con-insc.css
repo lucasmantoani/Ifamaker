@@ -1,0 +1,11 @@
+body {
+    background-image: url(../Assets/milky-way-starry-sky-night-sky-star-956999.jpeg);
+    overflow: auto;
+}
+.mainTitle {
+    text-align: center;
+    color : orange;
+    font-weight: bold;
+    font-size: 3em;
+    text-shadow: 1px 1px 1px  black;
+}
