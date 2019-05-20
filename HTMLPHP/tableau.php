@@ -1,4 +1,7 @@
 <?php ini_set('display_errors', 1);
+    header("Cache-control: no-cache");
+    header('Pragma: no-cache');
+    header('Expires: 0');
     require_once 'class.php';
  ?>
 <!doctype html>

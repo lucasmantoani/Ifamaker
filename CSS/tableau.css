@@ -40,7 +40,7 @@ input[type=button] {
 }
 .card {
     background-color:white;
-    border-radius:3px;
+    border-radius:3px; 
     margin: 1px;
 }
 
@@ -57,5 +57,10 @@ body {
     background-image: url(../Assets/oscar-soderlund-159361-unsplash.jpg);
     background-repeat: no-repeat;
     background-size: 210vh;
+    
+}
+
+.connectedSortable {
+    background-color: #3599a2;
     
 }

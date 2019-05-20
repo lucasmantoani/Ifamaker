@@ -26,7 +26,7 @@ ini_set('display_errors', 1);
             for ($i=0; $i < $count ; $i++) 
             { 
                 $cards = $result->fetch(PDO::FETCH_OBJ);
-                echo '<li class="card">' . $cards->nom . '<br>' . $cards->descriptif . '</li>';
+                echo '<li class="card" id_billet="'.$cards->id_billets . '">' . $cards->nom . '<br>' . $cards->descriptif.'</li>';
             }
         }
 
@@ -42,7 +42,7 @@ ini_set('display_errors', 1);
             { 
                 $col = $resultCol->fetch(PDO::FETCH_OBJ);
 
-                echo ' <div class="container" > ';
+                echo ' <div class="container" id_colonne="' . $col->id_colonne . '" > ';
                 echo ' <h2 contenteditable="true">' . $col->nom .'</h2> ';
                 echo ' <ul class="sortable connectedSortable"> '; 
                 echo  $columns->getCards($col->id_colonne);
@@ -75,7 +75,7 @@ ini_set('display_errors', 1);
                     <input w-25 type="text" class="form-control" name="tabName" id="password" required="" autocomplete="new-password">
                     <div class="invalid-feedback">Please enter a password</div>
                 </div>
-                <button type="submit" name="submitNewTab" class="btn btn-lg btn-success" id="btnLogin">Connexion</button>
+                <button type="submit" name="submitNewTab" class="btn btn-lg btn-success" id="btnLogin">Créer</button>
             </form>
                  ';
                 

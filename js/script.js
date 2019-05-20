@@ -1,11 +1,13 @@
 $(function() {
-
+  var cardId;
+  var colId;
     // Drag and Drop des billets entre les colonnes
 
-    $( ".sortable" ).sortable({   // On vise la classe .sortable et on utilise la méthode sortable()
-      connectWith: ".connectedSortable", // .connectedSortable est la classe qui contient les billets, à l'intérieur de la colonne
+    $( ".sortable" ).sortable({   
+      connectWith: ".connectedSortable", 
       receive: function( event, ui ) {
-        $(this).css({"background-color":"gray"}); // Lors d'un event, le fond devient gris !
+        $(this).css({"background-color":"gainsboro"}); 
+
       }
     }).disableSelection(); 
 
@@ -19,12 +21,40 @@ $(function() {
         // ********* A FAIRE ICI : REQUETE AJAX AJOUT BILLET BDD ************
     });   
     
-    $( ".all" ).sortable({   // On vise la classe .all et on utilise la méthode sortable()
-      connectWith: ".container", // .container est la classe qui contient les billets, à l'intérieur du body.
+     $( ".all" ).sortable({   
+      connectWith: ".container", 
       receive: function( event, ui ) {
-        $(this).css({"background-color":"gray"}); // Lors d'un event, le fond devient gris !
+        $(this).css({"background-color":"gray"}); 
       }
     }).disableSelection(); 
+
+    
+    $(".card").click(function() {
+      var cardId = $(this).attr("id_billet");
+      var colId = $(this).parent().parent().attr("id_colonne");
+      
+      //alert('Billet '+cardId);
+      //alert('colonne ' +colId);
+      // Appel AJAX pour mettre à jour la la colonne dans laquelle se trouve le billet
+        $.ajax({
+            url: '../HTMLPHP/postRequest.php',
+            type: 'POST',
+            data: 'id_colonne=' + colId + '&id_billet=' + cardId,
+            success: function(data){
+                console.log("Bien joué bg");
+            },
+            error: function(data){
+               
+            }//,
+            //complete: function(data){}
+        });
+
+        event.stopPropagation();
+    }); 
+
+
+
+
 
 
 
