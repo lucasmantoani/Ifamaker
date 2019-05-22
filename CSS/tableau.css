@@ -1,0 +1,66 @@
+body {
+    background-color: gainsboro;
+}
+h2 {
+    margin: 5px; 
+    text-align: center;
+}
+
+input[type=text] {
+    margin:10px;
+}
+input[type=button] {
+    margin:10px;
+}  
+.container {
+    width: 20%; 
+    float:left;
+    clear: right;
+    margin:10px; 
+    border-radius: 5px;
+    background-color: rgba(34, 182, 174, 0.7);
+}
+.sortable { 
+    list-style-type: none; 
+    margin:0; 
+    padding:2px; 
+    min-height:30px; 
+    border-radius: 5px;
+}
+.sortable li { 
+    margin: 3px 3px 3px 3px; 
+    padding: 0.4em; 
+    padding-left: 1.5em; 
+    font-size: 1.4em; 
+    height: auto ;
+}
+.sortable li span { 
+    position: absolute; 
+    margin-left: -1.3em; 
+}
+.card {
+    background-color:white;
+    border-radius:3px; 
+    margin: 1px;
+}
+
+.all {
+    display: flex;
+    flex-direction: row;
+
+}
+li {
+    list-style: none;
+    
+}
+body {
+    background-image: url(../Assets/oscar-soderlund-159361-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-size: 210vh;
+    
+}
+
+.connectedSortable {
+    background-color: #3599a2;
+    
+}
