@@ -4,24 +4,20 @@ ini_set('display_errors', 1);
 
     function BDD() // Fonction qui crée la connection à la Base de données
     {
-
         $server = "localhost";
         $dbname = "ifamaker";
         $user = "lucas";
         $password = "37Rn4En";
         $conn =  new PDO("mysql:host=$server;dbname=$dbname", $user, $password);
-
         return $conn;
     }
     class Tableau 
     {
-        public function getCards($id_colonne)
+        public function getCards($id_colonne) // OK
         {
             $bdd = BDD();
-
             $result = $bdd->prepare('SELECT * FROM billets where id_colonne =' . $id_colonne );
             $result->execute();
-            
             $count = $result->rowCount();
             for ($i=0; $i < $count ; $i++) 
             { 
@@ -30,7 +26,7 @@ ini_set('display_errors', 1);
             }
         }
 
-        public function getColonne()
+        public function getColonne() // OK
         {
             $bdd = BDD();
 
@@ -38,20 +34,26 @@ ini_set('display_errors', 1);
             $resultCol->execute();
             $columns = new tableau;
             $count = $resultCol->rowCount();
-            for ($i=0; $i < $count ; $i++) 
+            for ($i=1; $i < $count+1 ; $i++) 
             { 
                 $col = $resultCol->fetch(PDO::FETCH_OBJ);
 
-                echo ' <div class="container" id_colonne="' . $col->id_colonne . '" > ';
+                echo ' <div class="container" id_colonne="' . $col->id_colonne . '" id_position="' . $i . '" > ';
                 echo ' <h2 contenteditable="true">' . $col->nom .'</h2> ';
                 echo ' <ul class="sortable connectedSortable"> '; 
                 echo  $columns->getCards($col->id_colonne);
                 echo '</ul>';
+                $columns->getFormulaire();
                 echo '</div>';
             }
         }
 
-        public function getTableau()
+        public function getFormulaire() // OK
+        {
+            require "./Modules/addCardForm.html";
+        }
+
+        public function getTableau() // OK
         {
             if (isset($_SESSION['id_utilisateur']))
             {
@@ -61,74 +63,113 @@ ini_set('display_errors', 1);
                 $count = $resultTab->rowCount();
                 echo '<h2>Tableaux :</h2>';
                 echo '<ul>';
+                $this->getProjet();
                 for ($i=0; $i < $count ; $i++) 
                 { 
+
                     $tab = $resultTab->fetch(PDO::FETCH_OBJ);
-                    echo '<li> <a href="tableau.php?id=' . $tab->id_tableau . '">' . $tab->nom . '</a></li>';
+                    echo '<li> Nom : <a href="tableau.php?id=' . $tab->id_tableau . '">' . $tab->nom .'</a> </li>';
                 }
                 echo '</ul>';
                 // Bouton pour créer un nouveau tableau, qui ferait appel a creationTableau
-                echo 
-                '
-                <form class="form" role="form" id="loginForm" novalidate="" method="POST">
-                <div class="form-group">
-                    <input w-25 type="text" class="form-control" name="tabName" id="password" required="" autocomplete="new-password">
-                    <div class="invalid-feedback">Please enter a password</div>
-                </div>
-                <button type="submit" name="submitNewTab" class="btn btn-lg btn-success" id="btnLogin">Créer</button>
-            </form>
-                 ';
+                require "./Modules/createTabForm.html";
                 
             }
             
         }
-
-        public function getForm()
+        
+        public function getProjet() // EN COURS
         {
-           echo '
-           <div class="link-div">
-           <input type="text" id="new_text" value="" />
-           <input
-             type="button"
-             name="btnAddNew"
-             value="Ajouter"
-             class="add-button"/>
-         </div>';
+            if (isset($_SESSION['id_utilisateur']))
+            {
+                $bdd = BDD();
+                $result = $bdd->prepare("SELECT * FROM projet_utilisateur INNER JOIN projet on projet_utilisateur.id_projet = projet.id_projet WHERE id_utilisateur =" . $_SESSION['id_utilisateur']);
+                $result->execute();
+                $count = $result->rowCount();
+                for ($i=0; $i < $count ; $i++) 
+                { 
+                    $project = $result->fetch(PDO::FETCH_OBJ);
+                    echo $project->nom;
+
+                    
+                }
+                // Appeler creationTableau() où id_projet = ?????????????????
+            }
         }
 
-        public function creationTableau() 
+        public function getProjets() // OK, faite pour afficher toute la liste des projets
+        {
+            if (isset($_SESSION['id_utilisateur']))
+            {
+                $bdd = BDD();
+                $result = $bdd->prepare("SELECT * FROM projet_utilisateur INNER JOIN projet on projet_utilisateur.id_projet = projet.id_projet WHERE id_utilisateur =" . $_SESSION['id_utilisateur']);
+                $result->execute();
+                $count = $result->rowCount();
+                for ($i=0; $i < $count ; $i++) 
+                { 
+                    $project = $result->fetch(PDO::FETCH_OBJ);
+                    echo '<option>' . $project->id_projet . ' ' . $project->nom . '</option>';
+                }
+                // Appeler creationTableau() où id_projet = ?????????????????
+            }
+        }
+
+        public function creationTableau() // OK
         {
             $bdd = BDD();
-
+            require "./Modules/deleteTabForm.html";
             if(isset($_POST['submitNewTab'])) 
             {
                 
-                $nom = $_POST['tabName'];
-                //$requser = $bdd->prepare("INSERT INTO tableau( nom, id_projet, id_utilisateur) VALUES ([value-1],[value-2],[value-3],[value-4])");
-                //$requser->execute;
+                $nom = htmlspecialchars($_POST['tabName']);
+                $user = $_SESSION['id_utilisateur'];
+
+                $requser = $bdd->prepare("INSERT INTO tableau(nom, id_projet, id_utilisateur) VALUES (?,?,?)");
+                $requser->execute(array($nom, 1, $user));
+                
                 
             }
         }
 
-        public function suppressionTableau() {}
-
-        public function creationColonne() 
+        public function suppressionTableau() // OK
         {
-            // Vérifier si l'user clique sur le bouton
             $bdd = BDD();
-            $nom = $_POST['nom'];
-            $creaTab = $bdd->prepare('INSERT INTO colonne (nom, id_tableau) VALUES (?,?)');
-            $creaTab->execute(array($nom, $_GET['id'] ) );
+            if(isset($_POST['deleteButton'])) 
+            {
+                $nom = htmlspecialchars($_POST['tabName']);
+                $requser = $bdd->prepare("DELETE FROM tableau WHERE nom = ? ");
+                $requser->execute(array($nom));
+                header('Location: ./home.php');
 
+            }
+            
+                
+            
         }
 
-        //public function supressionColonne() {}
-        
+        public function creationColonne() // OK
+        {
+            $bdd = BDD();
+            require "./Modules/createCol.html";
+            if(isset($_POST['createCol']) != NULL) 
+            {
+                $nom = $_POST['newColName'];
+                $creaTab = $bdd->prepare('INSERT INTO colonne (nom, id_tableau) VALUES (?,?)');
+                $creaTab->execute(array($nom, $_GET['id'] ) );
+                header('Location: tableau.php?id='. $_GET['id']);
+            }
+            
+        }
+
+        public function lol()
+        {
+            echo 'lol';
+        }
     }
 
     class User 
     {
-        public function inscription() 
+        public function inscription() // OK
         {
             $bdd = BDD();
             if(isset($_POST['submit1']))
@@ -138,7 +179,6 @@ ini_set('display_errors', 1);
                 $pseudo = htmlspecialchars($_POST['pseudo']);
                 $age = htmlspecialchars($_POST['age']);
                 $password = sha1($_POST['motdepasse']);
-                $address = htmlspecialchars($_POST['address']);
                 $email = htmlspecialchars($_POST['email']);
 
                 if(!empty($_POST['pseudo']) AND !empty($_POST['address']) AND !empty($_POST['email']) AND !empty($_POST['motdepasse']) ) 
@@ -173,43 +213,46 @@ ini_set('display_errors', 1);
                     else $erreur = "Tous les champs doivent être complétés !";
         }
 
-        public function Connection() 
+        public function Connection() // OK
         {
             $bdd = BDD();
 
             if(isset($_POST['submit1'])) 
             {
-            $pseudo = htmlspecialchars($_POST['pseudo']);
-            $mdpconnect = sha1($_POST['password']);
-            if(!empty($pseudo) AND !empty($mdpconnect)) 
-            {
-                $requser = $bdd->prepare("SELECT * FROM utilisateurs WHERE pseudo = '". $pseudo ."' AND password = '". $mdpconnect . "'");
-                $requser->execute(array($pseudo, $mdpconnect));
-                $userexist = $requser->rowCount();
-                if($userexist > 0) 
+                $pseudo = htmlspecialchars($_POST['pseudo']);
+                $mdpconnect = sha1($_POST['password']);
+                if(!empty($pseudo) AND !empty($mdpconnect)) 
                 {
-                    $userinfo = $requser->fetch();
-                    $_SESSION['id_utilisateur'] = $userinfo['id_utilisateur'];
-                    $_SESSION['nom'] = $userinfo['nom']; 
-                    $_SESSION['prenom'] = $userinfo['prenom']; 
-                    $_SESSION['pseudo'] = $userinfo['pseudo']; 
-                    $_SESSION['mail'] = $userinfo['mail'];
-                    $_SESSION['age'] = $userinfo['age']; ?>
-                    <script>
-                        document.location.href="home.php";
-                    </script>
-                    <?php
-                    echo '<h2 class ="welcome">Bienvenue ' . $_SESSION['nom'].' '.$_SESSION['prenom'] . ', Vous êtes désormais connectés !</h2>';
-                    
-                } else echo "Mauvais mail ou mot de passe !";
+                    $requser = $bdd->prepare("SELECT * FROM utilisateurs WHERE pseudo = '". $pseudo ."' AND password = '". $mdpconnect . "'");
+                    $requser->execute(array($pseudo, $mdpconnect));
+                    $userexist = $requser->rowCount();
+                    if($userexist > 0) 
+                    {
+                        $userinfo = $requser->fetch();
+                        $_SESSION['id_utilisateur'] = $userinfo['id_utilisateur'];
+                        $_SESSION['nom'] = $userinfo['nom']; 
+                        $_SESSION['prenom'] = $userinfo['prenom']; 
+                        $_SESSION['pseudo'] = $userinfo['pseudo']; 
+                        $_SESSION['mail'] = $userinfo['mail'];
+                        $_SESSION['age'] = $userinfo['age']; 
+                        $_SESSION['date_inscription'] = $userinfo['date_inscription']; 
+                        
+                        ?>
+                        <script>
+                            document.location.href="home.php";
+                        </script>
+                        <?php
+                        echo '<h2 class ="welcome">Bienvenue ' . $_SESSION['nom'].' '.$_SESSION['prenom'] . ', Vous êtes désormais connectés !</h2>';
+                        
+                    } else echo "Mauvais mail ou mot de passe !";
                 
-            } 
-            else echo "Tous les champs doivent être complétés !";
+                } 
+                else echo "Tous les champs doivent être complétés !";
 
             }
         }
 
-        public function getUserData() 
+        public function getUserData() // OK
         {
             $bdd = BDD();
             $result = $bdd->prepare('SELECT * FROM utilisateurs where id_utilisateur =' . $_SESSION['id_utilisateur']);
@@ -223,13 +266,10 @@ ini_set('display_errors', 1);
                  '<h4> Age : ' . $user->age . ' ans.<h4>';
         }
 
-        public function userHomePage()
+        public function userHomePage() // OK
         {
             if (isset($_SESSION['id_utilisateur']))
             {
-
-              echo '<a href="deconnexion.php" class="btn btn-danger" role="button">Déconnexion</a><br><br>';
-              // renvoie vers une page qui lance un script de déconnexion et envoie vers l'accueil .
               echo
               '<div class="container4">';
               $user = new User(); 
@@ -237,10 +277,24 @@ ini_set('display_errors', 1);
               echo '<div class="container4">';
               $user->getUserData();
               echo '</div>';
+              require "./Modules/deconnection.html";
+              // renvoie vers une page qui lance un script de déconnexion et envoie vers l'accueil .
             }
             else 
             {
-              echo "<p style='text-align : center; color: white;'>Vous n'êtes pas identifié(e), vous pouvez le faire <a href='page_connexion.php'>ici !</a> </p>";
+              require "./Modules/notConnectedAlert.html";
+            }
+        }
+
+        public function displayUserPage() // OK, Gestion de la page utilisateur
+        {
+            if (isset($_SESSION['id_utilisateur']))
+            {
+                include "home.php";
+            }
+            else 
+            {
+                header('Location: index.php');
             }
         }
 
@@ -249,6 +303,4 @@ ini_set('display_errors', 1);
         public function suppressionEquipe() {}
 
     }
-
-
 ?>

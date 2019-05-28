@@ -1,7 +1,4 @@
 <?php ini_set('display_errors', 1);
-    header("Cache-control: no-cache");
-    header('Pragma: no-cache');
-    header('Expires: 0');
     require_once 'class.php';
  ?>
 <!doctype html>
@@ -22,14 +19,24 @@
     <script src="../js/script.js"></script>
   </head>
   <body>
-    <h1> <?php //echo $cards ; ?></h1>
     <?php include 'header.php'; ?>
     <div class="all">
     <?php 
         $cards = new Tableau ;
         $cards->getColonne();
+        $cards->creationColonne();
     ?>
     </div>
-      
+    <footer>
+      <footer class="page-footer font-small blue">
+      <div class="footer-copyright text-center py-3 bg-dark">
+      <?php
+        $cards = new Tableau ;
+        $cards->suppressionTableau(); 
+        //$cards->creationColonne();
+       ?>
+      </div>
+      </footer>
+    </footer>
   </body>
 </html>
