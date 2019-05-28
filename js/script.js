@@ -14,6 +14,7 @@ $(function() {
     // Création des nouveaux billets grâce au formulaire
     $('.add-button').click(function() {
         var txtNewItem = $('#new_text').val();
+        console.log(txtNewItem);
         $(this).closest('div.container').find('ul').append('<li class="card">'+txtNewItem+'</li>');
         // Quand on clique sur le bouton add, on donne la valeur entrée à la variable txtNewItem
         // Et dans le div.container le plus proche, on trouve l'ul et on met dedans un li avec le texte de la variable
@@ -51,11 +52,6 @@ $(function() {
 
         event.stopPropagation();
     }); 
-
-
-
-
-
 
 
   });
