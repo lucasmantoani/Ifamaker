@@ -19,12 +19,14 @@
     <script src="../js/script.js"></script>
   </head>
   <body>
-    <?php include 'header.php'; ?>
+    <?php 
+      include 'header.php'; 
+      include 'header2.php'; 
+    ?>
     <div class="all">
     <?php 
         $cards = new Tableau ;
         $cards->getColonne();
-        $cards->creationColonne();
     ?>
     </div>
     <footer>
@@ -33,7 +35,6 @@
       <?php
         $cards = new Tableau ;
         $cards->suppressionTableau(); 
-        //$cards->creationColonne();
        ?>
       </div>
       </footer>

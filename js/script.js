@@ -11,7 +11,7 @@ $(function() {
       }
     }).disableSelection(); 
 
-    // Création des nouveaux billets grâce au formulaire
+    // Création dnes nouveaux billets grâce au formulaire
     $('.add-button').click(function() {
         var txtNewItem = $('#new_text').val();
         console.log(txtNewItem);
@@ -33,10 +33,7 @@ $(function() {
     $(".card").click(function() {
       var cardId = $(this).attr("id_billet");
       var colId = $(this).parent().parent().attr("id_colonne");
-      
-      //alert('Billet '+cardId);
-      //alert('colonne ' +colId);
-      // Appel AJAX pour mettre à jour la la colonne dans laquelle se trouve le billet
+
         $.ajax({
             url: '../HTMLPHP/postRequest.php',
             type: 'POST',
@@ -46,12 +43,12 @@ $(function() {
             },
             error: function(data){
                
-            }//,
-            //complete: function(data){}
+            }
         });
 
         event.stopPropagation();
     }); 
+
 
 
   });

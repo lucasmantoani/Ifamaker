@@ -32,7 +32,7 @@ require_once "class.php";
       <div class="card-body bg-dark">
       <?php 
         $tab = new Tableau();
-        $tab->getTableau();
+        $tab->getProjet();
         $tab ->creationTableau();
         $tab->suppressionTableau();
       ?>

@@ -1,6 +1,6 @@
 <?php
 ini_set('display_errors', 1);
-//include "class.php";
+$user = new User();
 ?>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
@@ -16,15 +16,15 @@ ini_set('display_errors', 1);
                         <img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" />
                     </div>
                     <div class="col-sm-6 col-md-8">
-                        <h4><?php echo $_SESSION['nom'] . ' ' . $_SESSION['prenom'];  ?></h4>
+                        <h4><?= $user->getUserSurname() ?> <?= $user->getUsername() ?></h4>
                         <small>
-                          <h4 title="pseudo"> pseudo : <?php echo $_SESSION['pseudo'];?></h4>
+                          <h4 title="pseudo"> pseudo : <?= $user->getUserPseudo() ?></h4>
                         </small>
                         <p>
-                            <i class="glyphicon glyphicon-envelope"></i> <?= $_SESSION['mail'] ?><br>
-                            <i class="glyphicon glyphicon-gift"></i> <?= $_SESSION['age'] . " ans"?><br>
-                            <i class="glyphicon glyphicon-chevron-right"></i> Inscription : <?= $_SESSION['date_inscription']?>
-                        </p>
+                            <i class="glyphicon glyphicon-envelope"></i> <?= $user->getUserEmail() ?><br>
+                            <i class="glyphicon glyphicon-gift"></i> <?= $user->getUserAge() ?> ans<br>
+                            <i class="glyphicon glyphicon-chevron-right"></i> Inscription : <?= $user->getUserSignupDate() ?>
+                        </p>  
                         <?php include "./Modules/modifyButton.html";?>
                     </div>
                 </div>

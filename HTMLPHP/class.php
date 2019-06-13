@@ -53,26 +53,22 @@ ini_set('display_errors', 1);
             require "./Modules/addCardForm.html";
         }
 
-        public function getTableau() // OK
+        public function getTableau($id) // OK
         {
             if (isset($_SESSION['id_utilisateur']))
             {
                 $bdd = BDD();
-                $resultTab = $bdd->prepare('SELECT * FROM tableau WHERE id_utilisateur =' . $_SESSION['id_utilisateur']);
+                $resultTab = $bdd->prepare('SELECT * FROM tableau WHERE id_projet =' . $id);
                 $resultTab->execute();
                 $count = $resultTab->rowCount();
-                echo '<h2>Tableaux :</h2>';
                 echo '<ul>';
-                $this->getProjet();
                 for ($i=0; $i < $count ; $i++) 
                 { 
-
                     $tab = $resultTab->fetch(PDO::FETCH_OBJ);
-                    echo '<li> Nom : <a href="tableau.php?id=' . $tab->id_tableau . '">' . $tab->nom .'</a> </li>';
+                    echo '<li> <b><a href="tableau.php?id=' . $tab->id_tableau . '">' . $tab->nom .'</a></b> </li>';
                 }
                 echo '</ul>';
-                // Bouton pour créer un nouveau tableau, qui ferait appel a creationTableau
-                require "./Modules/createTabForm.html";
+
                 
             }
             
@@ -86,13 +82,16 @@ ini_set('display_errors', 1);
                 $result = $bdd->prepare("SELECT * FROM projet_utilisateur INNER JOIN projet on projet_utilisateur.id_projet = projet.id_projet WHERE id_utilisateur =" . $_SESSION['id_utilisateur']);
                 $result->execute();
                 $count = $result->rowCount();
-                for ($i=0; $i < $count ; $i++) 
-                { 
-                    $project = $result->fetch(PDO::FETCH_OBJ);
-                    echo $project->nom;
+
+                   while ($project = $result->fetch(PDO::FETCH_OBJ)) 
+                   {
+                    echo '<h3>' . $project->nom . '</h3><br>';
+                    $this->getTableau($project->id_projet);
+                   } 
+                   // Bouton pour créer un nouveau tableau, qui ferait appel a creationTableau
+                require "./Modules/createTabForm.html";
 
                     
-                }
                 // Appeler creationTableau() où id_projet = ?????????????????
             }
         }
@@ -118,12 +117,13 @@ ini_set('display_errors', 1);
         {
             $bdd = BDD();
             require "./Modules/deleteTabForm.html";
-            if(isset($_POST['submitNewTab'])) 
+
+            if(isset($_POST['submitNewTab']) && $_POST['submitNewTab'] != null) 
             {
                 
-                $nom = htmlspecialchars($_POST['tabName']);
-                $user = $_SESSION['id_utilisateur'];
 
+                $user = $_SESSION['id_utilisateur'];
+                $nom = htmlspecialchars($_POST['tabName']);
                 $requser = $bdd->prepare("INSERT INTO tableau(nom, id_projet, id_utilisateur) VALUES (?,?,?)");
                 $requser->execute(array($nom, 1, $user));
                 
@@ -136,10 +136,10 @@ ini_set('display_errors', 1);
             $bdd = BDD();
             if(isset($_POST['deleteButton'])) 
             {
-                $nom = htmlspecialchars($_POST['tabName']);
+                $nom = htmlspecialchars($_POST['deleteTab']);
                 $requser = $bdd->prepare("DELETE FROM tableau WHERE nom = ? ");
                 $requser->execute(array($nom));
-                header('Location: ./home.php');
+                header("Refresh: 0;url=./home.php");
 
             }
             
@@ -147,7 +147,7 @@ ini_set('display_errors', 1);
             
         }
 
-        public function creationColonne() // OK
+        public function creationColonne() // OK MAIS A TRANSFORMER EN AJAX
         {
             $bdd = BDD();
             require "./Modules/createCol.html";
@@ -156,6 +156,21 @@ ini_set('display_errors', 1);
                 $nom = $_POST['newColName'];
                 $creaTab = $bdd->prepare('INSERT INTO colonne (nom, id_tableau) VALUES (?,?)');
                 $creaTab->execute(array($nom, $_GET['id'] ) );
+                header('Location: tableau.php?id='. $_GET['id']);
+            }
+            
+        }
+        public function suppressionColonne() // OK 
+        {
+            $bdd = BDD();
+            require "./Modules/deleteCol.html";
+            if(isset($_POST['deleteCol']) != NULL) 
+            {
+                $nom = $_POST['newColName'];
+                $suppTab = $bdd->prepare('DELETE FROM colonne where nom = ? AND id_tableau = ?');
+                $suppTab->execute(array($nom, $_GET['id']));
+                // $suppTab = $bdd->prepare('DELETE FROM colonne where nom = ?');
+                // $suppTab->execute(array($nom));
                 header('Location: tableau.php?id='. $_GET['id']);
             }
             
@@ -180,23 +195,25 @@ ini_set('display_errors', 1);
                 $age = htmlspecialchars($_POST['age']);
                 $password = sha1($_POST['motdepasse']);
                 $email = htmlspecialchars($_POST['email']);
+                $date_inscription = date("Y-m-d");
 
                 if(!empty($_POST['pseudo']) AND !empty($_POST['address']) AND !empty($_POST['email']) AND !empty($_POST['motdepasse']) ) 
                     {
                         $pseudolength = strlen($pseudo);
                         if($pseudolength <= 255) 
-                        {
+                        { echo "1";
                             if(filter_var($email, FILTER_VALIDATE_EMAIL)) 
-                            {
-                                $reqmail = $bdd->prepare('SELECT * FROM utilisateur WHERE mail = ?') ;
+                            { echo "2";
+                                $reqmail = $bdd->prepare('SELECT * FROM utilisateurs WHERE mail = ?') ;
                                 $reqmail->execute(array($email));
                                 $mailexist = $reqmail->rowCount();
+                                echo 'rbberg';
                                 if($mailexist == 0) 
-                                    {
+                                    { echo "zergerg";
                                         if($password != NULL) 
                                             {
-                                                $insertmbr = $bdd->prepare("INSERT INTO utilisateurs(nom, prenom, age, pseudo, password, mail) VALUES (?, ?, ?, ?, ?, ?)");
-                                                $insertmbr->execute(array($nom, $prenom, $age, $pseudo, $password, $email));
+                                                $insertmbr = $bdd->prepare("INSERT INTO utilisateurs(nom, prenom, age, date_inscription, pseudo, password, mail) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                                                $insertmbr->execute(array($nom, $prenom, $age, $date_inscription, $pseudo, $password, $email));
                                                 $erreur = "Votre compte a bien été créé !";
                                                 echo $erreur;            
                                                 
@@ -235,7 +252,8 @@ ini_set('display_errors', 1);
                         $_SESSION['pseudo'] = $userinfo['pseudo']; 
                         $_SESSION['mail'] = $userinfo['mail'];
                         $_SESSION['age'] = $userinfo['age']; 
-                        $_SESSION['date_inscription'] = $userinfo['date_inscription']; 
+                        $_SESSION['date_inscription'] = $userinfo['date_inscription'];
+                        $_SESSION['password'] = $userinfo['password']; 
                         
                         ?>
                         <script>
@@ -252,18 +270,58 @@ ini_set('display_errors', 1);
             }
         }
 
-        public function getUserData() // OK
+        public function getUserSurname() // OK
         {
             $bdd = BDD();
             $result = $bdd->prepare('SELECT * FROM utilisateurs where id_utilisateur =' . $_SESSION['id_utilisateur']);
             $result->execute();
             $user = $result->fetch(PDO::FETCH_OBJ);
+            return $user->prenom;
+        }
 
-            echo '<div class="userInfo"><h4> Pseudo : ' . $user->pseudo . ' <h4>' . 
-                 '<h4> Nom: ' . $user->nom . '<h4>' .
-                 '<h4> Prénom : ' . $user->prenom . '<h4>' .
-                 '<h4> Adresse mail : ' . $user->mail . '<h4>' .
-                 '<h4> Age : ' . $user->age . ' ans.<h4>';
+        public function getUserAge() // OK
+        {
+            $bdd = BDD();
+            $result = $bdd->prepare('SELECT * FROM utilisateurs where id_utilisateur =' . $_SESSION['id_utilisateur']);
+            $result->execute();
+            $user = $result->fetch(PDO::FETCH_OBJ);
+            return $user->age;
+        }
+
+        public function getUserSignupDate() // OK
+        {
+            $bdd = BDD();
+            $result = $bdd->prepare('SELECT * FROM utilisateurs where id_utilisateur =' . $_SESSION['id_utilisateur']);
+            $result->execute();
+            $user = $result->fetch(PDO::FETCH_OBJ);
+            return $user->date_inscription;
+        }
+
+        public function getUsername() // OK
+        {
+            $bdd = BDD();
+            $result = $bdd->prepare('SELECT * FROM utilisateurs where id_utilisateur =' . $_SESSION['id_utilisateur']);
+            $result->execute();
+            $user = $result->fetch(PDO::FETCH_OBJ);
+            return $user->nom;
+        }
+
+        public function getUserEmail() // OK
+        {
+            $bdd = BDD();
+            $result = $bdd->prepare('SELECT * FROM utilisateurs where id_utilisateur =' . $_SESSION['id_utilisateur']);
+            $result->execute();
+            $user = $result->fetch(PDO::FETCH_OBJ);
+            return $user->mail;
+        }
+
+        public function getUserPseudo() // OK
+        {
+            $bdd = BDD();
+            $result = $bdd->prepare('SELECT * FROM utilisateurs where id_utilisateur =' . $_SESSION['id_utilisateur']);
+            $result->execute();
+            $user = $result->fetch(PDO::FETCH_OBJ);
+            return $user->pseudo;
         }
 
         public function userHomePage() // OK
@@ -294,8 +352,45 @@ ini_set('display_errors', 1);
             }
             else 
             {
-                header('Location: index.php');
+                header('Location: page_connexion.php');
             }
+        }
+
+        public function userModification()  // fonction pour le formulaire de modification des informations de l'utilisateur
+        {
+            $bdd = BDD();
+
+            if(isset($_POST['submitModification'])) // Si l'utilisateur appuie sur le bouton submit
+            {
+
+                $requser = $bdd->prepare("UPDATE utilisateurs SET prenom = ? WHERE utilisateurs.id_utilisateur = ?" );
+                $requser->execute(array($_POST['prenom'], $_SESSION['id_utilisateur']));
+            
+                $requser = $bdd->prepare("UPDATE utilisateurs SET nom = ? WHERE utilisateurs.id_utilisateur = ?" );
+                $requser->execute(array($_POST['nom'], $_SESSION['id_utilisateur']));
+            
+                $requser = $bdd->prepare("UPDATE utilisateurs SET mail = ? WHERE utilisateurs.id_utilisateur = ?" );
+                $requser->execute(array($_POST['mail'], $_SESSION['id_utilisateur']));
+            
+                $requser = $bdd->prepare("UPDATE utilisateurs SET pseudo = ? WHERE utilisateurs.id_utilisateur = ?" );
+                $requser->execute(array($_POST['pseudo'], $_SESSION['id_utilisateur']));
+            
+                if (isset($_POST['password']) != NULL )
+                {
+                    if($_POST['password'] == $_POST['password2'])
+                    {
+                        $requser = $bdd->prepare("UPDATE utilisateurs SET password = ? WHERE utilisateurs.id_utilisateur = ?" );
+                        $requser->execute(array(sha1($_POST['password']), $_SESSION['id_utilisateur']));
+                    } else echo "Mot de passe non identiques"; 
+                } else echo "Le mot de passe ne peut pas être nul !";
+
+            }
+            else if (isset($_POST['stopModification'])) // Si l'utilisateur appuie sur le bouton cancel
+            {
+                var_dump($_POST);
+                header('Location: home.php');
+            }
+
         }
 
         public function creationEquipe() {}
