@@ -31,7 +31,7 @@ input[type=button] {
     margin: 3px 3px 3px 3px; 
     padding: 0.4em; 
     padding-left: 1.5em; 
-    font-size: 1.4em; 
+    font-size: 1.2em; 
     height: auto ;
 }
 .sortable li span { 
@@ -52,6 +52,7 @@ input[type=button] {
 li {
     list-style: none;
     
+    
 }
 body {
     background-image: url(../Assets/oscar-soderlund-159361-unsplash.jpg);
@@ -71,4 +72,9 @@ footer {
         right: 0
         
 }
+.colHeader {
+    color: black;
+
+}
+
 * {-moz-box-sizing: border-box; box-sizing: border-box;}

@@ -10,11 +10,8 @@
             <li class="nav-item active">
               <?php $tableau->creationColonne(); ?>
             </li>
-            <li class="nav-item active">
-              <?php $tableau->suppressionColonne(); ?>
-            </li>
             <li class="nav-item">
-            <?php include "testmodal.html"; ?>
+            <?php include "modales/testmodal.php"; ?>
             </li>
 
           </ul>

@@ -1,8 +1,8 @@
 $(function() {
   var cardId;
   var colId;
-    // Drag and Drop des billets entre les colonnes
 
+// Drag and Drop des billets entre les colonnes
     $( ".sortable" ).sortable({   
       connectWith: ".connectedSortable", 
       receive: function( event, ui ) {
@@ -10,17 +10,7 @@ $(function() {
 
       }
     }).disableSelection(); 
-
-    // Création dnes nouveaux billets grâce au formulaire
-    $('.add-button').click(function() {
-        var txtNewItem = $('#new_text').val();
-        console.log(txtNewItem);
-        $(this).closest('div.container').find('ul').append('<li class="card">'+txtNewItem+'</li>');
-        // Quand on clique sur le bouton add, on donne la valeur entrée à la variable txtNewItem
-        // Et dans le div.container le plus proche, on trouve l'ul et on met dedans un li avec le texte de la variable
-
-        // ********* A FAIRE ICI : REQUETE AJAX AJOUT BILLET BDD ************
-    });   
+  
     
      $( ".all" ).sortable({   
       connectWith: ".container", 
@@ -29,17 +19,18 @@ $(function() {
       }
     }).disableSelection(); 
 
-    
+// Fonction permettant la sauvegarde de la position des cartes :
+
     $(".card").click(function() {
       var cardId = $(this).attr("id_billet");
       var colId = $(this).parent().parent().attr("id_colonne");
 
         $.ajax({
-            url: '../HTMLPHP/postRequest.php',
+            url: '../HTMLPHP/requetesAjax/postRequest.php',
             type: 'POST',
             data: 'id_colonne=' + colId + '&id_billet=' + cardId,
             success: function(data){
-                console.log("Bien joué bg");
+                //console.log("Bien joué bg");
             },
             error: function(data){
                
@@ -48,6 +39,80 @@ $(function() {
 
         event.stopPropagation();
     }); 
+
+// Fonction de suppression des cartes en AJAX :
+
+    $(".deleteCard").hover().css("color","orange");
+    $(".deleteCard").click(function() {
+
+      var cardId = $(this).parent().attr("id_billet");
+      
+      $.ajax({
+        url: '../HTMLPHP/requetesAjax/requeteSuppression.php',
+        type: 'POST',
+        data: '&id_billet=' + cardId,
+        success: function(data)
+        {
+            $('[id_billet="'+ cardId +'"]').fadeOut();
+
+        },
+        error: function(data)
+        {
+           alert('Erreur lors de la suppression, veuillez réessayer');
+        }
+    });
+    })
+
+    // Fonction de suppression des colonnes en AJAX :
+
+    $(".deleteCol").hover().css("color","orange");
+    $(".deleteCol").click(function() {
+
+      var colId = $(this).parent().parent().attr("id_colonne");
+      
+      $.ajax({
+        url: '../HTMLPHP/requetesAjax/requeteSuppColonne.php',
+        type: 'POST',
+        data: '&id_colonne=' + colId,
+        success: function(data)
+        {
+
+          $('[id_colonne="'+ colId +'"]').fadeOut();
+
+        },
+        error: function(data)
+        {
+           alert('Erreur lors de la suppression, veuillez réessayer');
+        }
+    });
+    })
+
+
+      // Fonction de création des tableaux en AJAX:
+
+      $(".boutonCreation").click(function() {
+  
+        var TabId = $(this).parent().parent().attr("value");
+        
+        $.ajax({
+          url: '../HTMLPHP/requetesAjax/requeteSuppColonne.php',
+          type: 'POST',
+          data: '&id_colonne=' + colId,
+          success: function(data)
+          {
+  
+            $('[id_colonne="'+ colId +'"]').fadeOut();
+  
+          },
+          error: function(data)
+          {
+              alert('Erreur lors de la suppression, veuillez réessayer');
+          }
+      });
+      })
+
+
+
 
 
 

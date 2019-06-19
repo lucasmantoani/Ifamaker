@@ -22,7 +22,11 @@ ini_set('display_errors', 1);
             for ($i=0; $i < $count ; $i++) 
             { 
                 $cards = $result->fetch(PDO::FETCH_OBJ);
-                echo '<li class="card" id_billet="'.$cards->id_billets . '">' . $cards->nom . '<br>' . $cards->descriptif.'</li>';
+                echo '<li class="card" id_billet="'  .$cards->id_billets . '">
+                <span class="deleteCard">X</span> Titre : ' . $cards->nom . '<br>
+                    Description : ' . $cards->descriptif . '<br> 
+                    priorité : ' . $cards->priorité . 
+                '</li>';
             }
         }
 
@@ -39,11 +43,11 @@ ini_set('display_errors', 1);
                 $col = $resultCol->fetch(PDO::FETCH_OBJ);
 
                 echo ' <div class="container" id_colonne="' . $col->id_colonne . '" id_position="' . $i . '" > ';
-                echo ' <h2 contenteditable="true">' . $col->nom .'</h2> ';
+                echo '<div class="colHeader"> <h2 contenteditable="true">' . $col->nom .'</h2> <span class="deleteCol">X</span> </div>';
                 echo ' <ul class="sortable connectedSortable"> '; 
                 echo  $columns->getCards($col->id_colonne);
                 echo '</ul>';
-                $columns->getFormulaire();
+                //$columns->getFormulaire();
                 echo '</div>';
             }
         }
@@ -85,15 +89,11 @@ ini_set('display_errors', 1);
 
                    while ($project = $result->fetch(PDO::FETCH_OBJ)) 
                    {
-                    echo '<h3>' . $project->nom . '</h3><br>';
+                       $id_projet= $project->id_projet;
+                    echo '<h3 id="'. $project->id_projet .'">' . $project->nom . ' </h3> <a href="page_gestion_projet.php?id= ' . $id_projet . '"> <i class="fas fa-edit 2x"></i> </a> <br>';
                     $this->getTableau($project->id_projet);
                    } 
-                   // Bouton pour créer un nouveau tableau, qui ferait appel a creationTableau
-                require "./Modules/createTabForm.html";
-
-                    
-                // Appeler creationTableau() où id_projet = ?????????????????
-            }
+            }  
         }
 
         public function getProjets() // OK, faite pour afficher toute la liste des projets
@@ -104,31 +104,72 @@ ini_set('display_errors', 1);
                 $result = $bdd->prepare("SELECT * FROM projet_utilisateur INNER JOIN projet on projet_utilisateur.id_projet = projet.id_projet WHERE id_utilisateur =" . $_SESSION['id_utilisateur']);
                 $result->execute();
                 $count = $result->rowCount();
-                for ($i=0; $i < $count ; $i++) 
+                for ($i=1; $i < $count+1 ; $i++) 
                 { 
                     $project = $result->fetch(PDO::FETCH_OBJ);
-                    echo '<option>' . $project->id_projet . ' ' . $project->nom . '</option>';
+                    echo '<option value='. $project->id_projet  .'>' . $project->id_projet . ' ' . $project->nom . '</option>';
                 }
-                // Appeler creationTableau() où id_projet = ?????????????????
+                
             }
         }
 
         public function creationTableau() // OK
         {
             $bdd = BDD();
-            require "./Modules/deleteTabForm.html";
 
-            if(isset($_POST['submitNewTab']) && $_POST['submitNewTab'] != null) 
+            if(isset($_POST['boutonCreation'])) 
             {
+                $nom = htmlspecialchars($_POST['titre']);
+                $projet = $_POST['projet'];
+                $user = $_SESSION['id_utilisateur'];
+
+                echo $nom . " " . $projet . " " . $user;
+                if($nom != null) 
+                {
+
+                    $requser = $bdd->prepare("INSERT INTO tableau(nom, id_projet, id_utilisateur) VALUES (?,?,?)");
+                    $requser->execute(array($nom, $projet, $user));
+                }
                 
 
-                $user = $_SESSION['id_utilisateur'];
-                $nom = htmlspecialchars($_POST['tabName']);
-                $requser = $bdd->prepare("INSERT INTO tableau(nom, id_projet, id_utilisateur) VALUES (?,?,?)");
-                $requser->execute(array($nom, 1, $user));
-                
-                
             }
+        }
+
+        public function creationBillet() // OK
+        {
+            $bdd = BDD();
+
+            // Requête à la base de données pour récupérer la première colonne du tableau.
+            $resultCol = $bdd->prepare('SELECT * FROM colonne where id_tableau =' . $_GET['id']);
+            $resultCol->execute();
+            $col = $resultCol->fetch(PDO::FETCH_OBJ);
+            //
+            
+            if(isset($_POST["boutonCreation"])) 
+            {
+                if($_POST['titre'] != NULL && $_POST['description'] != NULL && $_POST['priorité'] != NULL) 
+                {
+                    $titre = $_POST['titre'];
+                    $description = $_POST['description'];
+                    $priorite = $_POST['priorité'];
+                    $colonne = $col->id_colonne;
+
+                    $requser = $bdd->prepare("INSERT INTO billets(nom, descriptif, id_colonne, priorité) VALUES (?,?,?,?)");
+                    $requser->execute(array($titre, $description, $colonne, $priorite));
+                    
+                }
+                else if($_POST['titre'] == NULL OR $_POST['description'] == NULL OR $_POST['priorité'] != NULL) 
+                {
+                    echo "<script>alert('Veuillez remplir tout les champs requis pour créer un billet !')</script>";
+                }
+                else echo "<script>alert('Erreur lors de la création')</script>";
+            }
+            
+        }
+
+        public function suppressionBillet() 
+        {
+
         }
 
         public function suppressionTableau() // OK
@@ -151,13 +192,18 @@ ini_set('display_errors', 1);
         {
             $bdd = BDD();
             require "./Modules/createCol.html";
-            if(isset($_POST['createCol']) != NULL) 
+            if(isset($_POST['createCol'])) 
             {
-                $nom = $_POST['newColName'];
-                $creaTab = $bdd->prepare('INSERT INTO colonne (nom, id_tableau) VALUES (?,?)');
-                $creaTab->execute(array($nom, $_GET['id'] ) );
-                header('Location: tableau.php?id='. $_GET['id']);
+                if($_POST['newColName']!= null && $_POST['newColName']!= "")  
+                {
+                    $nom = $_POST['newColName'];
+                    $creaTab = $bdd->prepare('INSERT INTO colonne (nom, id_tableau) VALUES (?,?)');
+                    $creaTab->execute(array($nom, $_GET['id'] ) );
+                    header('Location: tableau.php?id='. $_GET['id']);
+                }
+                else echo "<script> alert('Veuillez donner un nom au tableau');</script>";
             }
+            
             
         }
         public function suppressionColonne() // OK 
@@ -169,11 +215,36 @@ ini_set('display_errors', 1);
                 $nom = $_POST['newColName'];
                 $suppTab = $bdd->prepare('DELETE FROM colonne where nom = ? AND id_tableau = ?');
                 $suppTab->execute(array($nom, $_GET['id']));
-                // $suppTab = $bdd->prepare('DELETE FROM colonne where nom = ?');
-                // $suppTab->execute(array($nom));
+
                 header('Location: tableau.php?id='. $_GET['id']);
             }
             
+        }
+
+        public function creationProjet()
+        {   
+            $bdd = BDD();
+
+            if(isset($_POST['boutonCreationProjet'])) 
+            {
+                $nom = htmlspecialchars($_POST['titre']);
+                $id_utilisateur = $_SESSION['id_utilisateur'];
+
+                if($nom != null) 
+                {
+
+                    $requser = $bdd->prepare("INSERT INTO projet(nom) VALUES (?)");
+                    $requser->execute(array($nom));
+                    
+                    $id = $bdd->lastInsertId();
+
+
+                    $requser3 = $bdd->prepare("INSERT INTO projet_utilisateur (id_projet, id_utilisateur) VALUES (?,?)");
+                    $requser3->execute(array($id, $id_utilisateur));
+                }
+                
+
+            }
         }
 
         public function lol()
@@ -197,7 +268,7 @@ ini_set('display_errors', 1);
                 $email = htmlspecialchars($_POST['email']);
                 $date_inscription = date("Y-m-d");
 
-                if(!empty($_POST['pseudo']) AND !empty($_POST['address']) AND !empty($_POST['email']) AND !empty($_POST['motdepasse']) ) 
+                if(!empty($_POST['pseudo']) AND !empty($_POST['nom']) AND !empty($_POST['prenom']) AND !empty($_POST['email']) AND !empty($_POST['motdepasse']) ) 
                     {
                         $pseudolength = strlen($pseudo);
                         if($pseudolength <= 255) 
@@ -214,8 +285,7 @@ ini_set('display_errors', 1);
                                             {
                                                 $insertmbr = $bdd->prepare("INSERT INTO utilisateurs(nom, prenom, age, date_inscription, pseudo, password, mail) VALUES (?, ?, ?, ?, ?, ?, ?)");
                                                 $insertmbr->execute(array($nom, $prenom, $age, $date_inscription, $pseudo, $password, $email));
-                                                $erreur = "Votre compte a bien été créé !";
-                                                echo $erreur;            
+                                                echo "alert('Votre compte a bien été créé !')";        
                                                 
                                             }
                                         else $erreur = "Il faut insérer un mot de passe !";

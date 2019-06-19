@@ -29,13 +29,6 @@
         $cards->getColonne();
     ?>
     </div>
-    <footer>
-      <footer class="page-footer font-small blue">
-      <div class="footer-copyright text-center py-3 bg-dark">
-      <?php
-        $cards = new Tableau ;
-        $cards->suppressionTableau(); 
-       ?>
       </div>
       </footer>
     </footer>
