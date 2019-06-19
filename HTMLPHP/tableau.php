@@ -19,22 +19,16 @@
     <script src="../js/script.js"></script>
   </head>
   <body>
-    <?php include 'header.php'; ?>
+    <?php 
+      include 'header.php'; 
+      include 'header2.php'; 
+    ?>
     <div class="all">
     <?php 
         $cards = new Tableau ;
         $cards->getColonne();
-        $cards->creationColonne();
     ?>
     </div>
-    <footer>
-      <footer class="page-footer font-small blue">
-      <div class="footer-copyright text-center py-3 bg-dark">
-      <?php
-        $cards = new Tableau ;
-        $cards->suppressionTableau(); 
-        //$cards->creationColonne();
-       ?>
       </div>
       </footer>
     </footer>

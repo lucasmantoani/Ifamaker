@@ -19,22 +19,17 @@ require_once "class.php";
   <body>
     <?php 
       include 'header.php'; 
-      require "./Modules/deconnection.html";
+      require "./Modules/returnButton.html";
       ?>
-    <h1 id='title'>Espace utilisateur</h1>
+    <h1 id='title'></h1>
     <div class="container">
       <div class="row">
-        <div class="col">
-          <?php 
-      include "lab.php";
-      ?>
-      </div>
       <div class="col">
       <div class="card">
         <div class="card-body bg-dark">
           <?php 
           $tab = new Tableau();
-          $tab->getProjet();
+          $tab->getTableau($_GET['id']);
           require "./modales/modalCreationTableau.php";
 
         ?>
