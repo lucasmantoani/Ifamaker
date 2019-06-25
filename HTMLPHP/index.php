@@ -13,10 +13,10 @@
         <body>
         <?php include 'header.php'; ?>
 
-        <h1 id="title">IFA Maker</h1>
+        <h1 id="title"><img src="../Assets/logo_small.png" alt="" srcset=""></h1>
         <div class="container">
             <p id="introduction"><br><br> 
-            IFA Maker est un projet réalisé à l'IFA de Metz, permettant une répartition simple des tâches d'un projet.<br>
+            IFA Maker est un projet réalisé pour l'Institut Français des Affaires de Metz, permettant une répartition simple des tâches d'un projet.<br>
             Pour utiliser ce service, vous devez être inscrit et connecté ! <br>
             <div class="buttons">  
                 <a href="page_connexion.php" class="btn btn-success btn-block" role="button">Connexion</a>

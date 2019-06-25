@@ -11,7 +11,7 @@
 </head>
 <body>
 <?php include 'header.php'; ?>
-<h1 id='title'>Contact</h1>
+<h1 id='title' >Contact</h1>
 <div class="container-fluid py-3">
     <form id="contact-form" method="post" action="contact.php" role="form">
         <div class="messages"></div>
