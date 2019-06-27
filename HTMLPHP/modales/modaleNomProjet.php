@@ -51,6 +51,7 @@
                   <div class="modal-footer" style="margin-left: 10px;">
                     <input type="button" value="modifier" name="boutonModificationProjet" class="btn btn-success boutonModificationProjet"></input>
                     <button type="button" name="boutonQuitter" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                    <input type="button" value="supprimer" name="boutonSuppressionProjet" class="btn btn-dark boutonSuppressionProjet"></input>
                   </div>
               </form>
             </div>
@@ -79,13 +80,36 @@
               success: function(data){
                 
                 $('.modal-nom').modal('toggle');
-                document.location.href="home.php";
+                  document.location.href="home.php";
               },
               error: function(data){
                 alert('Erreur lors de la modification, veuillez réessayer');
               }
             });
           });
+
+
+          $('.boutonSuppressionProjet').click(function(){
+
+            var id = $("#title").attr('id_projet');
+            // console.log('le id du projet est '+id); OK
+
+            $.ajax({
+              url: '../HTMLPHP/requetesAjax/requeteSuppressionProjet.php',
+              type: 'POST',
+              data: '&id_projet=' + id,
+              success: function(data){
+                
+                $('.modal-nom').modal('toggle');
+                  document.location.href="home.php";
+              },
+              error: function(data){
+                alert('Erreur lors de la suppression, veuillez réessayer');
+              }
+            });
+
+          })
+
         });
       </script>
 

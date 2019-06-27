@@ -25,19 +25,18 @@ require_once "class.php";
     <div class="container">
       <div class="row">
         <div class="col">
-          <?php 
-      include "lab.php";
-      ?>
+          <?php include "lab.php"; ?>
+          <?php include "colab.php"; ?>
       </div>
       <div class="col">
       <div class="card">
         <div class="card-body bg-dark">
+        <h3>Projets :</h3>
           <?php 
           $tab = new Tableau();
           $tab->getProjet();
           require "./modales/modalCreationTableau.php";
-
-        ?>
+          ?>
         </div>
         <?php require "./modales/modalCreationProjet.php"; ?>
       </div>

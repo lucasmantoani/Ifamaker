@@ -49,6 +49,7 @@ ini_set('display_errors', 1);
                 echo '</ul>';
                 //$columns->getFormulaire();
                 echo '</div>';
+
             }
         }
 

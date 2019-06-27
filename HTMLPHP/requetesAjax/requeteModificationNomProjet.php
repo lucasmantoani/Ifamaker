@@ -10,8 +10,8 @@
 
     if($nom != null) 
     {
-        $result = $bdd->prepare('UPDATE projet SET nom= ? WHERE id_projet = ? AND id_utilisateur = ? ');
-        $result->execute(array($nom, $id, $id_utilisateur));
+        $result = $bdd->prepare('UPDATE projet SET nom= ? WHERE id_projet = ? ');
+        $result->execute(array($nom, $id));
     
         echo $id . ' id tab<br>';
         echo $id_utilisateur . ' id user<br>';
