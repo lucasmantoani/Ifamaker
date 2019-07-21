@@ -10,10 +10,14 @@ $user = new User();
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-12">
-            <div class="well well-sm bg-dark">
+            <div class="well well-sm bg-light   ">
                 <div class="row">
                     <div class="col-sm-6 col-md-12">
                         <h3>Projets Colaboratifs :</h3>
+                        <!-- Ajouter "Propriétaire" à la table projets -->
+                         <!-- Get Projets Where Users n'est pas propriétaire -> Class.php ->GetNonPropUser -->
+                         <!-- links balise a vers tableau spécial ? ou tableau classique ? -->
+
                     </div>
                 </div>
             </div>

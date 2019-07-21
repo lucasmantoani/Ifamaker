@@ -27,8 +27,8 @@ require_once "class.php";
     <div class="container">
       <div class="row d-flex justify-content-center">
       <div class="col-6">
-      <div class="card bg-dark">
-        <div class="card-body bg-dark">
+      <div class="card bg-light">
+        <div class="card-body bg-light">
           
           <?php 
           $tab = new Tableau();

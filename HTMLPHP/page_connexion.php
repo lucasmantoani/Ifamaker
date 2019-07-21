@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-md-6 mx-auto">
                     <!-- form card login with validation feedback -->
-                    <div class="card card-outline-dark">
+                    <div class="card card-outline-dark bg-light">
                         <div class="card-body ">
                             <form class="form" role="form" autocomplete="off" id="loginForm" novalidate="" method="POST">
                                 <div class="form-group">

@@ -12,13 +12,13 @@
 <body>
 <?php include 'header.php'; ?>
 <h1 id='title' >Contact</h1>
-<div class="container-fluid py-3">
+<div class="container-fluid py-3 bg-light">
     <form id="contact-form" method="post" action="contact.php" role="form">
         <div class="messages"></div>
-        <div class="controls">
+        <div class="controls bg-light">
             <div class="row">
                 <div class="col-sm-4">
-                    <div class="form-group text-warning">
+                    <div class="form-group text-warning bg-light">
                         <label for="form_name">Nom *</label>
                         <input id="form_name" type="text" name="name" class="form-control" placeholder="Veuillez entrer votre nom *" required="required" data-error="name is required.">
                         <div class="help-block with-errors"></div>

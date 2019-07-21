@@ -49,13 +49,13 @@ $user2 = new User();
         <div class="form-group">
           <label class="col-md-3 control-label" id="text">Mot de passe:</label>
           <div class="col-md-8">
-            <input class="form-control" value="" type="password" name="password">
+            <input class="form-control" value="" type="password" name="password" required>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label" id="text">Confirmez le mot de passe:</label>
           <div class="col-md-8">
-            <input class="form-control" value="" type="password" name="password2">
+            <input class="form-control" value="" type="password" name="password2" required>
           </div>
         </div>
         <div class="form-group">

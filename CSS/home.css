@@ -1,6 +1,6 @@
 body {
     /*background: url(../Assets/milky-way-starry-sky-night-sky-star-956999.jpeg);*/
-    background-color: rgb(94, 90, 90);
+    background-color: white;
     min-height: 100vh;
     color: orange;
 }
@@ -9,7 +9,6 @@ body {
     color : orange;
     font-weight: bolder;
     font-size: 3em;
-    text-shadow: 2px 2px 2px  black;
 }
 .userInfo {
     color: white;

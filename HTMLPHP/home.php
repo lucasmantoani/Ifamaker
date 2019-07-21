@@ -30,7 +30,7 @@ require_once "class.php";
       </div>
       <div class="col">
       <div class="card">
-        <div class="card-body bg-dark">
+        <div class="card-body bg-light">
         <h3>Projets :</h3>
           <?php 
           $tab = new Tableau();

@@ -10,7 +10,7 @@ $user = new User();
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-12">
-            <div class="well well-sm bg-dark">
+            <div class="well well-sm bg-light">
                 <div class="row">
                     <div class="col-sm-6 col-md-4">
                         <img src="https://s1.qwant.com/thumbr/0x380/2/e/0dd9bcc9b49252d577c6ac0cc489dd647cf2c8abcab054e2eef265e1e7d75d/profile.png?u=http%3A%2F%2Fwww.adiclasses.com%2Fthemes%2Ffrontend%2Fimages%2Fprofile.png&q=0&b=1&p=0&a=1" alt="" class="img-rounded img-responsive" />

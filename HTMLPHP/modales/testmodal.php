@@ -21,15 +21,15 @@
   <body>
       <button type="button" class=" bruh btn btn-lg btn-success">Création d'un billet</button>
       <div class="modal" id="infos">
-        <div class="modal-dialog bg-dark text-white">
-          <div class="modal-content bg-dark text-white">
-            <div class="modal-header bg-dark">
-              <h4 class="modal-title text-white">Créer un billet</h4>
+        <div class="modal-dialog bg-light text-dark">
+          <div class="modal-content bg-light text-dark">
+            <div class="modal-header bg-light">
+              <h4 class="modal-title text-dark">Créer un billet</h4>
               <button type="button" class="close" data-dismiss="modal">
                 <span>&times;</span>
               </button>
             </div>
-            <div class="modal-body bg-dark text-white">
+            <div class="modal-body bg-light text-dark">
               Attention : Le billet sera automatiquement ajouté à la première colonne !
             </div>
             <div>
@@ -37,14 +37,14 @@
 
                 <div class="row">
                   <div class="col-sm-12">
-                    <div class="inputBox bg-dark text-white ">
+                    <div class="inputBox bg-light text-dark ">
                       <div class="inputText">Titre</div>
                       <input type="text" name="titre" class="input">
                     </div>
                   </div>
 
                   <div class="col-sm-12">
-                    <div class="inputBox bg-dark text-white">
+                    <div class="inputBox bg-light text-dark">
                       <div  class="inputText">Description</div>
                       <TEXTAREA style="margin-left: 10px;" name="description" rows=3 cols=40></TEXTAREA>
                     </div>
@@ -53,13 +53,13 @@
 
                 <div class="row">
                   <div class="col-sm-12">
-                    <div class="inputBox bg-dark text-white">
+                    <div class="inputBox bg-light text-dark">
                       <div class="inputText">Priorité (Basse, Normale, Haute)</div>
                       <input type="text" name="priorité" class="input">
                     </div>
                   </div>
 
-                  <div class="modal-footer bg-dark text-white" style="margin-left: 10px;">
+                  <div class="modal-footer bg-light text-dark" style="margin-left: 10px;">
                     <input type="submit" name="boutonCreation" class="btn btn-success"></input>
                     <button type="button" name="boutonQuitter" class="btn btn-danger" data-dismiss="modal">Fermer</button>
                   </div>
