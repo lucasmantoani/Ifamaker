@@ -13,7 +13,7 @@
         <body>
         <?php include 'header.php'; ?>
 
-        <h1 id="title"><img style="width: 100%;" src="../Assets/Mockup-LucasMantoani..jpg" alt="" srcset=""></h1>
+        <h1 id="title"><img style="width: 100%;" src="../Assets/Mockup-LucasMantoani..jpg" alt="" ></h1>
         <div class="container">
             <p id="introduction"><br><br> 
             IFA Maker est un projet réalisé pour l'Institut Français des Affaires de Metz, permettant une répartition simple des tâches d'un projet.<br>

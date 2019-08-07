@@ -21,12 +21,12 @@
   ?>
 
   <body>
-      <button type="button" class=" bruh btn btn-lg btn-info btn-crea ">Création d'un projet </button>
+      <button type="button" class=" bruh btn btn-lg btn-info btn-crea  ">Création d'un projet </button>
       <div class="modal modal-projet" id="infos">
         <div class="modal-dialog">
-          <div class="modal-content bg-dark">
-            <div class="modal-header bg-dark">
-              <h4 class="modal-title text-white">Créer un Projet</h4>
+          <div class="modal-content bg-light">
+            <div class="modal-header bg-light">
+              <h4 class="modal-title text-dark">Créer un Projet</h4>
               <button type="button" class="close" data-dismiss="modal">
                 <span>&times;</span>
               </button>            
@@ -36,7 +36,7 @@
     
                 <div class="row">
                   <div class="col-sm-12">
-                    <div class="inputBox bg-dark ">
+                    <div class="inputBox bg-light ">
                       <div class="inputText">Titre</div>
                       <input type="text" name="titre" class="input">
                     </div>

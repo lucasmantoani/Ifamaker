@@ -13,7 +13,9 @@
     .modal {
       margin-right: 200px;
     }
-
+    .inputText {
+      color: red;
+    }
     </style>
   </head>
   <?php
@@ -23,9 +25,9 @@
   <body>
       <div class="modal modal-confirmation" id="infos">
         <div class="modal-dialog">
-          <div class="modal-content bg-dark">
-            <div class="modal-header bg-dark">
-              <h4 class="modal-title text-white">Supprimer un tableau </h4>
+          <div class="modal-content bg-light">
+            <div class="modal-header bg-light">
+              <h4 class="modal-title text-dark">Supprimer un tableau </h4>
               <button type="button" class="close" data-dismiss="modal">
                 <span>&times;</span>
               </button>            
@@ -35,15 +37,15 @@
     
                 <div class="row">
                   <div class="col-sm-12">
-                    <div class="inputBox bg-dark ">
+                    <div class="inputBox bg-light ">
                       <div class="inputText">Etes-vous bien sur de vouloir supprimer ce tableau ? Cette action est irréversible
                       et entrainera la perte des données contenues dans le tableau.</div>
                     </div>
                   </div>
     
                   <div class="modal-footer" style="margin-left: 10px;">
-                    <input type="button" value="modifier" name="boutonModification" class="btn btn-success boutonSuppression"></input>
-                    <button type="button" name="boutonQuitter" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                    <input type="button" value="Supprimer" name="boutonModification" class="btn btn-danger boutonSuppression"></input>
+                    <button type="button" name="boutonQuitter" class="btn btn-success" data-dismiss="modal">Fermer</button>
                   </div>
               </form>
               <!-- <?php //$tableau->modificationNomProjet(); ?> -->

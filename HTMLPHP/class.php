@@ -343,7 +343,7 @@ ini_set('display_errors', 1);
                         
                         ?>
                         <script>
-                            document.location.href="home.php";
+                            document.location.href="home2.php";
                         </script>
                         <?php
                         echo '<h2 class ="welcome">Bienvenue ' . $_SESSION['nom'].' '.$_SESSION['prenom'] . ', Vous êtes désormais connectés !</h2>';

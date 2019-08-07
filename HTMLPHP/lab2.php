@@ -11,7 +11,7 @@ $user = new User();
 $user->userModification();
 $user2 = new User();
 ?>
-<div class="container " style="padding-top: 60px;">
+<div class="container bg-light " style="padding-top: 60px;">
   <h1 class="page-header" id="title" >Éditez le profil </h1>
   <div class="row">
     <!-- left column -->
@@ -23,7 +23,7 @@ $user2 = new User();
       
       <form class="form-horizontal" role="form" method="POST" action="lab2.php">
         <div class="form-group">
-          <label class="col-lg-3 control-label " id="text">Prénom:</label>
+          <label class="col-lg-3 control-label text-dark" id="text">Prénom:</label>
           <div class="col-lg-8">
             <input class="form-control" value="<?= $user2->getUserSurname() ?>" type="text" name="prenom">
           </div>
