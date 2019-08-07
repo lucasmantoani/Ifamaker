@@ -1,6 +1,6 @@
 body {
     /*background: url('../Assets/milky-way-starry-sky-night-sky-star-956999.jpeg');*/
-    background-color: black;
+    background-color: white;
     min-height: 100vh;
 }
 #title {
@@ -8,14 +8,16 @@ body {
     color : orange;
     font-weight: bold;
     font-size: 3em;
-    text-shadow: 1px 1px 1px  black;
+    width: 100%;
+}
+#titleImage !important {
+    width: 100%;
 }
 #introduction {
     text-align: center;
-    color : orange;
+    color : black;
     font-weight: bold;
     font-size: 1.5em;
-    text-shadow: 1px 1px 1px  black;
 }
 .buttons {
     justify-content: center;
@@ -23,7 +25,7 @@ body {
     margin-bottom: 5%;
     margin-top: 5%;
 }
-.presContainer {
+.presContainer  {
     color: white;
     display: flex;
     margin-top: 50px;

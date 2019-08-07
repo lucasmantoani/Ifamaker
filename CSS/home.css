@@ -1,16 +1,38 @@
 body {
     /*background: url(../Assets/milky-way-starry-sky-night-sky-star-956999.jpeg);*/
-    background-color: black;
+    background-color: white;
     min-height: 100vh;
-    color: orange;
+    color: black;
 }
 #title {
     text-align: center;
-    color : orange;
-    font-weight: bold;
+    color : black;
+    font-weight: bolder;
     font-size: 3em;
-    text-shadow: 1px 1px 1px  black;
 }
 .userInfo {
     color: white;
+}
+
+a {
+    color: orange;
+    font-weight: normal;
+    font-size: 1.5em; 
+}
+p {
+    font-size: 1.2em;
+}
+h3 {
+    text-align: center;
+    font-weight: bold;
+
+}
+fa-edit {
+    margin-left: 90%;
+}
+.tab {
+    color : orange;
+}
+#modifyButton {
+    color: white !important;
 }

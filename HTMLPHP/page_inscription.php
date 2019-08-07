@@ -23,26 +23,26 @@
             <div class="row">
                 <div class="col-md-6 mx-auto">
                     <!-- form card login with validation feedback -->
-                    <div class="card card-outline-secondary">
+                    <div class="card card-outline-secondary bg-light">
                         <div class="card-body">
                             <form class="form" role="form" autocomplete="off" id="loginForm" novalidate="" method="POST">
 								<div class="form-group">
-									<label for="uname1">Nom</label>
+									<label >Nom</label>
                                     <input type="text" class="form-control" name="nom" id="nom" required="">
                                     <div class="invalid-feedback">Please enter your Name</div>
                                 </div>
                                 <div class="form-group">
-									<label for="uname1">Prénom</label>
+									<label >Prénom</label>
                                     <input type="text" class="form-control" name="prenom" id="prenom" required="">
                                     <div class="invalid-feedback">Please enter your surname</div>
                                 </div>
 								<div class="form-group">
-									<label for="uname1">Pseudo</label>
+									<label >Pseudo</label>
 									<input type="text" class="form-control" name="pseudo" id="pseudo" required="">
 									<div class="invalid-feedback">Please enter your Pseudo</div>
 								</div>
 								<div class="form-group">
-									<label for="uname1">Age</label>
+									<label >Age</label>
 									<input type="text" class="form-control" name="age" id="age" required="">
 									<div class="invalid-feedback">Please enter your Age</div>
 								</div>

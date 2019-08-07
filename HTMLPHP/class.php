@@ -49,6 +49,7 @@ ini_set('display_errors', 1);
                 echo '</ul>';
                 //$columns->getFormulaire();
                 echo '</div>';
+
             }
         }
 
@@ -69,7 +70,31 @@ ini_set('display_errors', 1);
                 for ($i=0; $i < $count ; $i++) 
                 { 
                     $tab = $resultTab->fetch(PDO::FETCH_OBJ);
-                    echo '<li> <b><a href="tableau.php?id=' . $tab->id_tableau . '">' . $tab->nom .'</a></b> </li>';
+                    echo '<li class="tab"> <b><a href="tableau.php?id=' . $tab->id_tableau . '">' . $tab->nom .'</a></b> </li>';
+                }
+                echo '</ul>';
+
+                
+            }
+            
+        }
+
+        public function getTableauForProject($id) // OK, pour page Gestion Projets
+        {
+            if (isset($_SESSION['id_utilisateur']))
+            {
+                $bdd = BDD();
+                $resultTab = $bdd->prepare('SELECT * FROM tableau WHERE id_projet = ? AND id_utilisateur = ?');
+                $resultTab->execute(array($id, $_SESSION['id_utilisateur']));
+                $count = $resultTab->rowCount();
+                echo '<ul>';
+                for ($i=0; $i < $count ; $i++) 
+                { 
+                    $tab = $resultTab->fetch(PDO::FETCH_OBJ);
+                    echo 
+                    '<li class="tab">
+                        <b> <a href="tableau.php?id=' . $tab->id_tableau . '" id="'. $tab->id_tableau  .'">' . $tab->nom .'</a> <i class="fas fa-edit 2x"  id="' . $tab->id_tableau . '"> </i>  <i class="fas fa-trash-alt" id="' . $tab->id_tableau . '"></i></b>
+                    </li>';
                 }
                 echo '</ul>';
 
@@ -90,7 +115,7 @@ ini_set('display_errors', 1);
                    while ($project = $result->fetch(PDO::FETCH_OBJ)) 
                    {
                        $id_projet= $project->id_projet;
-                    echo '<h3 id="'. $project->id_projet .'">' . $project->nom . ' </h3> <a href="page_gestion_projet.php?id= ' . $id_projet . '"> <i class="fas fa-edit 2x"></i> </a> <br>';
+                    echo '<h3 id="'. $project->id_projet .'"> - ' . $project->nom . ' </h3> <a href="page_gestion_projet.php?id= ' . $id_projet . '"> <i class="fas fa-edit 2x"></i> </a> <br>';
                     $this->getTableau($project->id_projet);
                    } 
             }  
@@ -113,30 +138,8 @@ ini_set('display_errors', 1);
             }
         }
 
-        public function creationTableau() // OK
-        {
-            $bdd = BDD();
-
-            if(isset($_POST['boutonCreation'])) 
-            {
-                $nom = htmlspecialchars($_POST['titre']);
-                $projet = $_POST['projet'];
-                $user = $_SESSION['id_utilisateur'];
-
-                echo $nom . " " . $projet . " " . $user;
-                if($nom != null) 
-                {
-
-                    $requser = $bdd->prepare("INSERT INTO tableau(nom, id_projet, id_utilisateur) VALUES (?,?,?)");
-                    $requser->execute(array($nom, $projet, $user));
-                }
-                
-
-            }
-        }
-
         public function creationBillet() // OK
-        {
+        { 
             $bdd = BDD();
 
             // Requête à la base de données pour récupérer la première colonne du tableau.
@@ -165,11 +168,6 @@ ini_set('display_errors', 1);
                 else echo "<script>alert('Erreur lors de la création')</script>";
             }
             
-        }
-
-        public function suppressionBillet() 
-        {
-
         }
 
         public function suppressionTableau() // OK
@@ -247,6 +245,24 @@ ini_set('display_errors', 1);
             }
         }
 
+        public function getNomProjet()
+        {
+            $bdd = BDD();
+            $result = $bdd->prepare('SELECT * FROM projet where id_projet =' . $_GET['id']);
+            $result->execute();
+            $user = $result->fetch(PDO::FETCH_OBJ);
+            return $user->nom;
+        }
+
+        public function getIdProjet()
+        {
+            $bdd = BDD();
+            $result = $bdd->prepare('SELECT * FROM projet where id_projet =' . $_GET['id']);
+            $result->execute();
+            $user = $result->fetch(PDO::FETCH_OBJ);
+            return $user->id_projet;
+        }
+
         public function lol()
         {
             echo 'lol';
@@ -272,20 +288,20 @@ ini_set('display_errors', 1);
                     {
                         $pseudolength = strlen($pseudo);
                         if($pseudolength <= 255) 
-                        { echo "1";
+                        { 
                             if(filter_var($email, FILTER_VALIDATE_EMAIL)) 
-                            { echo "2";
+                            { 
                                 $reqmail = $bdd->prepare('SELECT * FROM utilisateurs WHERE mail = ?') ;
                                 $reqmail->execute(array($email));
                                 $mailexist = $reqmail->rowCount();
-                                echo 'rbberg';
+                                
                                 if($mailexist == 0) 
-                                    { echo "zergerg";
+                                    { 
                                         if($password != NULL) 
                                             {
                                                 $insertmbr = $bdd->prepare("INSERT INTO utilisateurs(nom, prenom, age, date_inscription, pseudo, password, mail) VALUES (?, ?, ?, ?, ?, ?, ?)");
                                                 $insertmbr->execute(array($nom, $prenom, $age, $date_inscription, $pseudo, $password, $email));
-                                                echo "alert('Votre compte a bien été créé !')";        
+                                                echo "<script> document.location.href='page_connexion.php'; </script>";    
                                                 
                                             }
                                         else $erreur = "Il faut insérer un mot de passe !";
@@ -327,7 +343,7 @@ ini_set('display_errors', 1);
                         
                         ?>
                         <script>
-                            document.location.href="home.php";
+                            document.location.href="home2.php";
                         </script>
                         <?php
                         echo '<h2 class ="welcome">Bienvenue ' . $_SESSION['nom'].' '.$_SESSION['prenom'] . ', Vous êtes désormais connectés !</h2>';

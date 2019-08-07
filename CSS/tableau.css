@@ -18,7 +18,7 @@ input[type=button] {
     clear: right;
     margin:10px; 
     border-radius: 5px;
-    background-color: #ee7f01
+    background-color: rgba(240, 128, 1, 0.884)
 }
 .sortable { 
     list-style-type: none; 
@@ -55,8 +55,8 @@ li {
     
 }
 body {
-    background-image: url(../Assets/oscar-soderlund-159361-unsplash.jpg);
-    background-repeat: no-repeat;
+    background-image: url(../Assets/linear-white-gradient-blue-1920x1080-c2-b0c4de-fff5ee-a-60-f-14.png);
+    background-repeat: initial;
     background-size: 210vh;
     
 }
@@ -74,7 +74,17 @@ footer {
 }
 .colHeader {
     color: black;
-
 }
 
+
 * {-moz-box-sizing: border-box; box-sizing: border-box;}
+
+@media screen and (max-width: 920px) {
+.all {
+    flex-wrap: wrap;
+    
+}
+div.container {
+    min-width: 90%;
+}
+  }

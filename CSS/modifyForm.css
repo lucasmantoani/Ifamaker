@@ -1,0 +1,16 @@
+body {
+    /*background: url(../Assets/milky-way-starry-sky-night-sky-star-956999.jpeg);*/
+    background-color: white;
+    min-height: 100vh;
+
+}
+#title {
+
+    color : orange;
+    font-weight: bold;
+    font-size: 3em;
+}
+#text {   
+    font-weight: bold;
+    font-size: 1.5em;
+}
