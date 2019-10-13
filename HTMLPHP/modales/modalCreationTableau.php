@@ -24,9 +24,9 @@
       <button type="button" class=" bruh btn btn-lg btn-success btn-crea2 ">Création d'un tableau </button>
       <div class="modal modal-tableau" id="infos">
         <div class="modal-dialog">
-          <div class="modal-content bg-dark">
-            <div class="modal-header bg-dark">
-              <h4 class="modal-title text-white">Création tableau</h4>
+          <div class="modal-content bg-light">
+            <div class="modal-header bg-light">
+              <h4 class="modal-title text-dark">Création tableau</h4>
               <button type="button" class="close" data-dismiss="modal">
                 <span>&times;</span>
               </button>            
@@ -36,7 +36,7 @@
     
                 <div class="row">
                   <div class="col-sm-12">
-                    <div class="inputBox bg-dark ">
+                    <div class="inputBox bg-light ">
                       <div class="inputText">Titre</div>
                       <input type="text" name="titre" class="input">
                     </div>
@@ -69,31 +69,31 @@
       </div>
 
       <script>
-      $('.btn-crea2').click(function() 
-      {
-        $('.modal-tableau').modal('show');
-        });
-
-          $(".boutonCreation").click(function() 
-          {
-            var idProjet = $('select').val();
-            var nom = $('input').val()
-
-            $.ajax({
-              url: '../HTMLPHP/requetesAjax/requeteCreationTableau.php',
-              type: 'POST',
-              data: '&id_projet=' + idProjet + '&nom=' + nom ,
-              success: function(data){
-                
-                $('.modal-nom').modal('toggle');
-                console.log("envoi ok");
-                document.location.href="home.php";
-              },
-              error: function(data){
-                alert('Erreur lors de la création, veuillez réessayer');
-              }       
+        $('.btn-crea2').click(function() 
+        {
+          $('.modal-tableau').modal('show');
           });
-        });
+
+            $(".boutonCreation").click(function() 
+            {
+              var idProjet = $('select').val();
+              var nom = $('input').val()
+
+              $.ajax({
+                url: '../HTMLPHP/requetesAjax/requeteCreationTableau.php',
+                type: 'POST',
+                data: '&id_projet=' + idProjet + '&nom=' + nom ,
+                success: function(data){
+                  
+                  $('.modal-nom').modal('toggle');
+                  console.log("envoi ok");
+                  document.location.href="home.php";
+                },
+                error: function(data){
+                  alert('Erreur lors de la création, veuillez réessayer');
+                }       
+            });
+          });
       </script> 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

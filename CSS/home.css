@@ -1,12 +1,11 @@
 body {
-    /*background: url(../Assets/milky-way-starry-sky-night-sky-star-956999.jpeg);*/
     background-color: white;
     min-height: 100vh;
-    color: orange;
+    color: black;
 }
 #title {
     text-align: center;
-    color : orange;
+    color : black;
     font-weight: bolder;
     font-size: 3em;
 }
@@ -17,7 +16,7 @@ body {
 a {
     color: orange;
     font-weight: normal;
-    font-size: 1.5em;
+    font-size: 1.5em; 
 }
 p {
     font-size: 1.2em;
@@ -29,4 +28,10 @@ h3 {
 }
 fa-edit {
     margin-left: 90%;
+}
+.tab {
+    color : orange;
+}
+#modifyButton {
+    color: white !important;
 }

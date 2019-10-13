@@ -23,35 +23,31 @@
   <body>
       <div class="modal modal-nom-projet" id="infos">
         <div class="modal-dialog">
-          <div class="modal-content bg-dark">
-            <div class="modal-header bg-dark">
-              <h4 class="modal-title text-white">Modifier le nom du projet </h4>
+          <div class="modal-content bg-light">
+            <div class="modal-header bg-light">
+              <h4 class="modal-title text-dark">Modifier le nom du projet </h4>
               <button type="button" class="close" data-dismiss="modal">
                 <span>&times;</span>
               </button>            
             </div>
             <div>
               <form style="margin-left: 10px;" method="POST">
-    
                 <div class="row">
                   <div class="col-sm-12">
-                    <div class="inputBox bg-dark ">
+                    <div class="inputBox bg-light ">
                       <div class="inputText">Titre</div>
                       <input name="input" type="text" name="titre" class="input1">
                     </div>
                   </div>
-    
-    
                 <div class="row">
                   <div class="col-sm-12">
                     <div class="inputBox">
                     </div>
                   </div>
-    
                   <div class="modal-footer" style="margin-left: 10px;">
                     <input type="button" value="modifier" name="boutonModificationProjet" class="btn btn-success boutonModificationProjet"></input>
                     <button type="button" name="boutonQuitter" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-                    <input type="button" value="supprimer" name="boutonSuppressionProjet" class="btn btn-dark boutonSuppressionProjet"></input>
+                    <input type="button" value="supprimer" name="boutonSuppressionProjet" class="btn btn-danger boutonSuppressionProjet"></input>
                   </div>
               </form>
             </div>

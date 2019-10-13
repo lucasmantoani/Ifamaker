@@ -1,6 +1,8 @@
 <?php 
-
 require_once "class.php";
+if(isset($_SESSION['id_utilisateur'])) {
+
+
 ?>
 <!doctype html>
 <html lang="fr">
@@ -18,9 +20,10 @@ require_once "class.php";
   </head>
   <body>
     <?php 
+
       include 'header.php'; 
       require "./Modules/deconnection.html";
-      ?>
+    ?>
     <h1 id='title'>Espace utilisateur</h1>
     <div class="container">
       <div class="row">
@@ -54,3 +57,6 @@ require_once "class.php";
   </body>
 </html>
 <!doctype html>
+<?php } else {
+  header("location : page_connexion.php");
+} ?>

@@ -73,10 +73,7 @@ ini_set('display_errors', 1);
                     echo '<li class="tab"> <b><a href="tableau.php?id=' . $tab->id_tableau . '">' . $tab->nom .'</a></b> </li>';
                 }
                 echo '</ul>';
-
-                
             }
-            
         }
 
         public function getTableauForProject($id) // OK, pour page Gestion Projets
@@ -178,7 +175,7 @@ ini_set('display_errors', 1);
                 $nom = htmlspecialchars($_POST['deleteTab']);
                 $requser = $bdd->prepare("DELETE FROM tableau WHERE nom = ? ");
                 $requser->execute(array($nom));
-                header("Refresh: 0;url=./home.php");
+                header('Location: page_gestion_projet.php?id='. $_GET['id']);
 
             }
             
@@ -186,7 +183,7 @@ ini_set('display_errors', 1);
             
         }
 
-        public function creationColonne() // OK MAIS A TRANSFORMER EN AJAX
+        public function creationColonne() // OK 
         {
             $bdd = BDD();
             require "./Modules/createCol.html";
@@ -301,6 +298,7 @@ ini_set('display_errors', 1);
                                             {
                                                 $insertmbr = $bdd->prepare("INSERT INTO utilisateurs(nom, prenom, age, date_inscription, pseudo, password, mail) VALUES (?, ?, ?, ?, ?, ?, ?)");
                                                 $insertmbr->execute(array($nom, $prenom, $age, $date_inscription, $pseudo, $password, $email));
+                                                $this->mailInscription($email);
                                                 echo "<script> document.location.href='page_connexion.php'; </script>";    
                                                 
                                             }
@@ -340,10 +338,10 @@ ini_set('display_errors', 1);
                         $_SESSION['age'] = $userinfo['age']; 
                         $_SESSION['date_inscription'] = $userinfo['date_inscription'];
                         $_SESSION['password'] = $userinfo['password']; 
-                        
+                        // Ici appel fonction mail
                         ?>
                         <script>
-                            document.location.href="home.php";
+                            document.location.href="home2.php";
                         </script>
                         <?php
                         echo '<h2 class ="welcome">Bienvenue ' . $_SESSION['nom'].' '.$_SESSION['prenom'] . ', Vous êtes désormais connectés !</h2>';
@@ -479,6 +477,19 @@ ini_set('display_errors', 1);
 
         }
 
+        public function mailInscription($email)
+        {
+            $bdd = BDD();
+
+            $to_email = $emal;
+            $subject = "Ifa Maker - Inscription réussie";
+            $message = "Ceci est un mail généré automatiquement, vous confirmant que vous êtes bien inscrit à Ifa Maker.
+            Vous pouvez vous connecter avec le mail et le mot de passe que vous avez renseignés lors de l'inscription. ";
+            $headers = "From: noreply@ifa.fr";
+        
+            mail($to_email, $subject, $message, $headers);
+
+        }
         public function creationEquipe() {}
 
         public function suppressionEquipe() {}

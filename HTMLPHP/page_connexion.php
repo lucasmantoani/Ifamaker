@@ -26,7 +26,7 @@
                         <div class="card-body ">
                             <form class="form" role="form" autocomplete="off" id="loginForm" novalidate="" method="POST">
                                 <div class="form-group">
-                                    <label for="uname1">Pseudo</label>
+                                    <label>Pseudo</label>
                                     <input type="text" class="form-control" name="pseudo" id="pseudo" required="">
                                     <div class="invalid-feedback">Please enter your username</div>
                                 </div>

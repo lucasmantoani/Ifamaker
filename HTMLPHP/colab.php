@@ -16,6 +16,10 @@ $user = new User();
                         <h3>Projets Colaboratifs :</h3>
                         <!-- Ajouter "Propriétaire" à la table projets -->
                          <!-- Get Projets Where Users n'est pas propriétaire -> Class.php ->GetNonPropUser -->
+                         <!-- OU -->
+                         <br>
+                         <h4 class="text-center bg-success text-white">Bientôt disponible !</h4>
+                         <!-- Table projet et membres projet -->
                          <!-- links balise a vers tableau spécial ? ou tableau classique ? -->
 
                     </div>

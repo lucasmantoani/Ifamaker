@@ -23,9 +23,9 @@
   <body>
       <div class="modal modal-nom" id="infos">
         <div class="modal-dialog">
-          <div class="modal-content bg-dark">
-            <div class="modal-header bg-dark">
-              <h4 class="modal-title text-white">Modifier un Tableau</h4>
+          <div class="modal-content bg-light">
+            <div class="modal-header bg-light">
+              <h4 class="modal-title text-dark">Modifier un Tableau</h4>
               <button type="button" class="close" data-dismiss="modal">
                 <span>&times;</span>
               </button>            
@@ -35,7 +35,7 @@
     
                 <div class="row">
                   <div class="col-sm-12">
-                    <div class="inputBox bg-dark ">
+                    <div class="inputBox bg-light ">
                       <div class="inputText">Titre</div>
                       <input type="text" name="titre" class="input">
                     </div>
