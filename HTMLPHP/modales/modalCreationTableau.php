@@ -69,31 +69,31 @@
       </div>
 
       <script>
-      $('.btn-crea2').click(function() 
-      {
-        $('.modal-tableau').modal('show');
-        });
-
-          $(".boutonCreation").click(function() 
-          {
-            var idProjet = $('select').val();
-            var nom = $('input').val()
-
-            $.ajax({
-              url: '../HTMLPHP/requetesAjax/requeteCreationTableau.php',
-              type: 'POST',
-              data: '&id_projet=' + idProjet + '&nom=' + nom ,
-              success: function(data){
-                
-                $('.modal-nom').modal('toggle');
-                console.log("envoi ok");
-                document.location.href="home.php";
-              },
-              error: function(data){
-                alert('Erreur lors de la création, veuillez réessayer');
-              }       
+        $('.btn-crea2').click(function() 
+        {
+          $('.modal-tableau').modal('show');
           });
-        });
+
+            $(".boutonCreation").click(function() 
+            {
+              var idProjet = $('select').val();
+              var nom = $('input').val()
+
+              $.ajax({
+                url: '../HTMLPHP/requetesAjax/requeteCreationTableau.php',
+                type: 'POST',
+                data: '&id_projet=' + idProjet + '&nom=' + nom ,
+                success: function(data){
+                  
+                  $('.modal-nom').modal('toggle');
+                  console.log("envoi ok");
+                  document.location.href="home.php";
+                },
+                error: function(data){
+                  alert('Erreur lors de la création, veuillez réessayer');
+                }       
+            });
+          });
       </script> 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

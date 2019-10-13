@@ -1,6 +1,6 @@
 <?php 
 	ini_set('display_errors', 1);
-	require_once 'class.php';
+    require_once 'class.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

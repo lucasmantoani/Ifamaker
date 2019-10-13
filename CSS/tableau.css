@@ -47,42 +47,33 @@ input[type=button] {
 .all {
     display: flex;
     flex-direction: row;
-
 }
 li {
     list-style: none;
-    
-    
 }
 body {
     background-image: url(../Assets/linear-white-gradient-blue-1920x1080-c2-b0c4de-fff5ee-a-60-f-14.png);
     background-repeat: initial;
-    background-size: 210vh;
-    
+    background-size: 210vh; 
 }
 
 .connectedSortable {
     background-color: #ec5f28c9;
-    
 }
 footer {
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0
-        
 }
 .colHeader {
     color: black;
 }
-
-
 * {-moz-box-sizing: border-box; box-sizing: border-box;}
 
 @media screen and (max-width: 920px) {
 .all {
     flex-wrap: wrap;
-    
 }
 div.container {
     min-width: 90%;
