@@ -6,8 +6,8 @@ ini_set('display_errors', 1);
     {
         $server = "localhost";
         $dbname = "ifamaker";
-        $user = "lucas";
-        $password = "37Rn4En";
+        $user = ""; // User de la base de données
+        $password = ""; // Mot de passe de la base de données
         $conn =  new PDO("mysql:host=$server;dbname=$dbname", $user, $password);
         return $conn;
     }
