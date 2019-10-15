@@ -15,7 +15,7 @@ Repository de mon projet Fil rouge 'IFA Maker' dans le cadre de ma formation en 
 
 All the people that help me make while building this project 
 
- - [arsiak](https://github.com/arsiak)
+ - [Arsiak](https://github.com/arsiak)
  - [Nartco](https://github.com/nartco)
  - [FaresQed](https://github.com/FaresQed)
  - [MaxGuillaume57](https://github.com/MaxGuillaume57)
