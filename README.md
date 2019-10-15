@@ -13,7 +13,8 @@ Repository de mon projet Fil rouge 'IFA Maker' dans le cadre de ma formation en 
  - MySQL
 ## Remerciements / Special thanks to :
 
-All the people that help me make while building this project 
+All the people that help me make while building this project, helped me finding that missing } line 335 or 
+who advised me on the best way to make this project, specially :
 
  - [Arsiak](https://github.com/arsiak)
  - [Nartco](https://github.com/nartco)
