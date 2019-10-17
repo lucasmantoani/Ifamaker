@@ -1,6 +1,6 @@
 # IFA MAKER
 
-![Logo](./ToDoListApp.png)
+![Logo](./ASSETS/vue1.png)
 
 Repository de mon projet fil-rouge 'IFA Maker' dans le cadre de ma formation en développement web.
 Il s'agit d'un site de gestion de projets en vue Kanban, similaire à Trello.com.
