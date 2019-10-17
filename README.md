@@ -1,6 +1,6 @@
 # IFA MAKER
 
-![Logo](./ASSETS/vue1.png)
+![alt text](https://github.com/lucasmantoani/Ifamaker/blob/master/Assets/IFAMaker.png)
 
 Repository de mon projet fil-rouge 'IFA Maker' dans le cadre de ma formation en développement web.
 Il s'agit d'un site de gestion de projets en vue Kanban, similaire à Trello.com.
