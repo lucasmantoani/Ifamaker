@@ -1,0 +1,248 @@
+-- MySQL dump 10.13  Distrib 5.7.27, for Linux (x86_64)
+--
+-- Host: localhost    Database: ifamaker
+-- ------------------------------------------------------
+-- Server version	5.5.5-10.1.41-MariaDB-0ubuntu0.18.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `billets`
+--
+
+DROP TABLE IF EXISTS `billets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `billets` (
+  `id_billets` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(30) NOT NULL,
+  `descriptif` varchar(30) NOT NULL,
+  `id_colonne` int(11) NOT NULL,
+  `priorité` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_billets`),
+  KEY `id_colonne` (`id_colonne`),
+  CONSTRAINT `billets_ibfk_1` FOREIGN KEY (`id_colonne`) REFERENCES `colonne` (`id_colonne`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `billets`
+--
+
+LOCK TABLES `billets` WRITE;
+/*!40000 ALTER TABLE `billets` DISABLE KEYS */;
+INSERT INTO `billets` VALUES (1,'Test 1','Premier billet de mon projet',1,''),(9,'Chose à faire 2','Acheter une Aston Martin',5,''),(10,'Chose à faire 3','Acheter des Airpods',6,''),(11,'Chose à faire 6','Faire du karting',6,''),(72,'Tâche importante','bruh bruh bruh',2,'haute'),(84,'Avoir son titre','blblblbl peter leurs valises',7,'HAUTE'),(85,'bbb','bbb',91,'bbb'),(87,'jean','dfsdf',92,'Normale'),(88,'Billet','British steel',2,'Haute'),(89,'Lucas','knklnkn',3,'knknknk'),(90,'IFA Maker','Projet fil rouge 1',96,'Haute'),(93,'Présentation','Présentation fil rouge',95,'Normale'),(94,'Blblbl','peter leurs chevilles',99,'Haute'),(95,'Billet 1','Description',101,'Haute'),(96,'Billet 2','Description',102,'Basse'),(97,'Billet 3','Description',102,'Normale'),(99,'IFA','Finir l’année',106,'Haute'),(101,'zfzf','zfzfz',96,'haute'),(102,'Create a project','A website for our client',107,'Normale'),(105,'Choose a framework','VueJs or Angular',110,'Haute'),(106,'Testing Vuejs','Integration tests',109,'Normale'),(107,'Define a Deadline','Maximum : December 2019',108,'Basse'),(108,'Front-end developpement','By our front-end team',108,'High'),(109,'Back-end Developpement','By the back-end team',108,'High');
+/*!40000 ALTER TABLE `billets` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `colonne`
+--
+
+DROP TABLE IF EXISTS `colonne`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `colonne` (
+  `id_colonne` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(30) NOT NULL,
+  `id_tableau` int(11) NOT NULL,
+  PRIMARY KEY (`id_colonne`),
+  KEY `id_tableau` (`id_tableau`),
+  CONSTRAINT `colonne_ibfk_1` FOREIGN KEY (`id_tableau`) REFERENCES `tableau` (`id_tableau`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `colonne`
+--
+
+LOCK TABLES `colonne` WRITE;
+/*!40000 ALTER TABLE `colonne` DISABLE KEYS */;
+INSERT INTO `colonne` VALUES (1,'À faire',1),(2,'Test',1),(3,'En cours ',1),(5,'À faire',3),(6,'Fait',3),(7,'En cours ',3),(91,'omhh',44),(92,'Salut',48),(93,'nneee',48),(94,'Fait',1),(95,'À faire ',40),(96,'En développement',40),(97,'Test',40),(99,'À faire',49),(101,'Colonne 1',50),(102,'Colonne 2',50),(103,'Colonne 3',50),(106,'Fait',40),(107,'À faire',52),(108,'En cours',52),(109,'Test',52),(110,'Terminé',52);
+/*!40000 ALTER TABLE `colonne` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `membres_equipe`
+--
+
+DROP TABLE IF EXISTS `membres_equipe`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `membres_equipe` (
+  `id_utilisateur` int(255) NOT NULL,
+  `id_team` int(255) NOT NULL,
+  PRIMARY KEY (`id_utilisateur`,`id_team`),
+  UNIQUE KEY `id_utilisateur` (`id_utilisateur`),
+  KEY `id_utilisateur_2` (`id_utilisateur`,`id_team`),
+  KEY `id_team` (`id_team`),
+  CONSTRAINT `membres_equipe_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateurs` (`id_utilisateur`),
+  CONSTRAINT `membres_equipe_ibfk_2` FOREIGN KEY (`id_team`) REFERENCES `teams` (`id_team`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `membres_equipe`
+--
+
+LOCK TABLES `membres_equipe` WRITE;
+/*!40000 ALTER TABLE `membres_equipe` DISABLE KEYS */;
+/*!40000 ALTER TABLE `membres_equipe` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `projet`
+--
+
+DROP TABLE IF EXISTS `projet`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `projet` (
+  `id_projet` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_projet`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `projet`
+--
+
+LOCK TABLES `projet` WRITE;
+/*!40000 ALTER TABLE `projet` DISABLE KEYS */;
+INSERT INTO `projet` VALUES (1,'IFA'),(2,'IFA'),(5,'seb'),(9,'Rater sa vie'),(11,'TEST'),(12,'LT'),(13,'jeujeu'),(14,'pierrot'),(15,'CESI'),(16,'Peter leurs chevilles'),(17,'aaaa'),(18,'Vacances'),(19,'ESI'),(20,'Epitech');
+/*!40000 ALTER TABLE `projet` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `projet_utilisateur`
+--
+
+DROP TABLE IF EXISTS `projet_utilisateur`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `projet_utilisateur` (
+  `id_projet` int(255) NOT NULL,
+  `id_utilisateur` int(255) NOT NULL,
+  KEY `id_projet` (`id_projet`,`id_utilisateur`),
+  KEY `id_utilisateur` (`id_utilisateur`),
+  CONSTRAINT `projet_utilisateur_ibfk_1` FOREIGN KEY (`id_projet`) REFERENCES `projet` (`id_projet`) ON DELETE CASCADE,
+  CONSTRAINT `projet_utilisateur_ibfk_2` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateurs` (`id_utilisateur`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `projet_utilisateur`
+--
+
+LOCK TABLES `projet_utilisateur` WRITE;
+/*!40000 ALTER TABLE `projet_utilisateur` DISABLE KEYS */;
+INSERT INTO `projet_utilisateur` VALUES (2,5),(9,13),(13,8),(15,5),(16,8),(18,14),(19,5);
+/*!40000 ALTER TABLE `projet_utilisateur` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tableau`
+--
+
+DROP TABLE IF EXISTS `tableau`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tableau` (
+  `id_tableau` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) NOT NULL,
+  `id_projet` int(11) NOT NULL,
+  `id_utilisateur` int(255) NOT NULL,
+  PRIMARY KEY (`id_tableau`),
+  KEY `id_projet` (`id_projet`),
+  KEY `id_utilisateur` (`id_utilisateur`),
+  CONSTRAINT `tableau_ibfk_1` FOREIGN KEY (`id_projet`) REFERENCES `projet` (`id_projet`) ON DELETE CASCADE,
+  CONSTRAINT `tableau_ibfk_2` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateurs` (`id_utilisateur`) ON DELETE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tableau`
+--
+
+LOCK TABLES `tableau` WRITE;
+/*!40000 ALTER TABLE `tableau` DISABLE KEYS */;
+INSERT INTO `tableau` VALUES (1,'IFA Maker',1,5),(3,'Projet',1,5),(40,'Projet 1',2,5),(41,'Projet Sébastien',5,5),(43,'Projet 2',2,5),(44,'BONDOUR',11,5),(45,'BRUH',11,5),(48,'hey',13,8),(49,'blblbl',16,8),(50,'Tableau 1',15,5),(51,'Maroc',18,14),(52,'Tableau 1',19,5),(53,'Tableau 2',19,5),(54,'Projet Sarah',20,5);
+/*!40000 ALTER TABLE `tableau` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `teams`
+--
+
+DROP TABLE IF EXISTS `teams`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `teams` (
+  `id_team` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(30) NOT NULL,
+  `id_membre` int(30) NOT NULL,
+  PRIMARY KEY (`id_team`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `teams`
+--
+
+LOCK TABLES `teams` WRITE;
+/*!40000 ALTER TABLE `teams` DISABLE KEYS */;
+INSERT INTO `teams` VALUES (1,'DevWeb',1);
+/*!40000 ALTER TABLE `teams` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `utilisateurs`
+--
+
+DROP TABLE IF EXISTS `utilisateurs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `utilisateurs` (
+  `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(20) NOT NULL,
+  `prenom` varchar(20) NOT NULL,
+  `age` int(11) NOT NULL,
+  `date_inscription` date NOT NULL,
+  `pseudo` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `mail` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_utilisateur`),
+  UNIQUE KEY `pseudo` (`pseudo`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `utilisateurs`
+--
+
+LOCK TABLES `utilisateurs` WRITE;
+/*!40000 ALTER TABLE `utilisateurs` DISABLE KEYS */;
+INSERT INTO `utilisateurs` VALUES (1,'Mantoani','lucas',22,'2019-05-01','lucas.m','9cf95dacd226dcf43da376cdb6cbba7035218921','lucas@mantoani.fr'),(3,'Qedira','Fares',30,'0000-00-00','resfa57','9cf95dacd226dcf43da376cdb6cbba7035218921','fares@google.fr'),(4,'Lyly','Stutzinger',4,'0000-00-00','lyly57','9cf95dacd226dcf43da376cdb6cbba7035218921','lyly@chat.fr'),(5,'Mantoani','Lucas',22,'0000-00-00','lucas01','9cf95dacd226dcf43da376cdb6cbba7035218921','lucas01@google.com'),(7,'David','Cassandre',24,'2019-06-17','Cssndre','9cf95dacd226dcf43da376cdb6cbba7035218921','cassou@edf.com'),(8,'Rosiak','Arnaud',27,'2019-06-18','rosniak','9cf95dacd226dcf43da376cdb6cbba7035218921','arnaud@ctg.eu'),(11,'qefq','fsqsf',22,'2019-06-19','qsfqsf','d03ecb1bdd9a833cc19c05ac0206ac4168a84d83','qsfqs@qsfq.fr'),(13,'Guillaume','Maxime',28,'2019-06-20','bad_cowboy','9cf95dacd226dcf43da376cdb6cbba7035218921','max@sucedesculs.fr'),(14,'Adrien','Bauquel',38,'2019-07-24','adrienB','9cf95dacd226dcf43da376cdb6cbba7035218921','adrien@tsahal.il'),(17,'mantoani','lucas',22,'2019-08-08','amivantage','9cf95dacd226dcf43da376cdb6cbba7035218921','lucas.mantoani22@gmail.com');
+/*!40000 ALTER TABLE `utilisateurs` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-10-23  9:05:59
