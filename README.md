@@ -1,6 +1,8 @@
 # IFA MAKER
+<p align="center"> 
+<img src="https://github.com/lucasmantoani/Ifamaker/blob/master/Assets/IFAMaker.png">
+</p>
 
-![Logo](./ToDoListApp.png)
 
 Repository de mon projet fil-rouge 'IFA Maker' dans le cadre de ma formation en développement web.
 Il s'agit d'un site de gestion de projets en vue Kanban, similaire à Trello.com.
@@ -39,3 +41,12 @@ who advised me on the best way to make this project, specially :
  - [Mergorti](https://github.com/Mergorti)
  - [Washaweb](https://github.com/washaweb)
  - [Sikara57](https://github.com/Sikara57)
+ 
+ <p align="center"> 
+<img src="https://github.com/lucasmantoani/Ifamaker/blob/master/Assets/vue1.png">
+</p>
+<p align="center"> 
+<img src="https://github.com/lucasmantoani/Ifamaker/blob/master/Assets/vue2.png">
+</p>
+ 
+ 
