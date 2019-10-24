@@ -22,9 +22,11 @@ Il s'agit d'un site de gestion de projets en vue Kanban, similaire à Trello.com
 
 Vu que ce projet est réalisé principalement en PHP, vous devez disposer d'un serveur web ou d'un environnement permettant de le simuler en local (type WAMP, MAMP) pour lancer le site.
 Ajoutez le fichier SQL à votre base de données, et vous pouvez désormais utiliser le site.
+N'oubliez pas de modifier le nom et le mot de passe d'accès à la base de données dans bdd() dans Class.php pour accèder à la base de donnée !
 
 *Due to the using of PHP for most of the website, in order to use it you'll need a web server to run it or a solution like WAMP or MAMP to simulate a local server.*
 *Add the SQL file to your databse, and now you can use the website.*
+*Don't forget to add your database login and password to the bdd() function in Class.php to access the database !*
 
 
 ## Remerciements / Special thanks to :
