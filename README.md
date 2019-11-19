@@ -1,4 +1,6 @@
+<p align="center">
 # IFA MAKER
+ </p>
 <p align="center"> 
 <img src="https://github.com/lucasmantoani/Ifamaker/blob/master/Assets/IFAMaker.png">
 </p>
